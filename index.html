@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildGreen | Sustainable Engineering Framework</title>
+    <style>
+        :root { --primary: #10b981; --primary-hover: #059669; --bg-body: #f8fafc; --bg-card: #ffffff; --text-dark: #0f172a; --text-muted: #475569; --border-light: #e2e8f0; --accent-red: #ef4444; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-dark); margin: 0; padding: 0; line-height: 1.6; }
+        .hero-banner { position: relative; background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.85)), url('https://unsplash.com'); background-size: cover; background-position: center; background-attachment: fixed; color: #ffffff; padding: 100px 20px; text-align: center; }
+        .hero-container { max-width: 850px; margin: 0 auto; }
+        .hero-container h1 { font-size: 4rem; font-weight: 800; margin: 0 0 10px 0; letter-spacing: -1px; color: #ffffff; }
+        .hero-container h1 span { color: var(--primary); }
+        .hero-tagline { font-size: 1.4rem; color: #e2e8f0; margin-bottom: 40px; font-weight: 300; text-transform: uppercase; letter-spacing: 2px; }
+        .manifesto-box { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.15); padding: 35px; border-radius: 16px; text-align: left; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .manifesto-box p { font-size: 1.15rem; color: #f1f5f9; margin: 0 0 20px 0; }
+        .manifesto-box p strong { color: var(--primary); font-size: 1.3rem; }
+        .author-badge { font-size: 0.95rem; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1px; border-left: 3px solid var(--primary); padding-left: 10px; margin-top: 15px; }
+        .kids-quote { font-size: 1.2rem; font-style: italic; color: #a7f3d0; text-align: center; margin-top: 30px; font-weight: 400; }
+        .main-wrapper { max-width: 1200px; margin: -50px auto 60px auto; padding: 0 20px; position: relative; z-index: 10; }
+        .calculator-container { background: var(--bg-card); border-radius: 24px; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06); border: 1px solid var(--border-light); display: grid; grid-template-columns: 420px 1fr; overflow: hidden; }
+        @media (max-width: 968px) { .calculator-container { grid-template-columns: 1fr; } .main-wrapper { margin-top: 20px; } }
+        .control-side { background-color: #f8fafc; padding: 40px 30px; border-right: 1px solid var(--border-light); }
+        .control-side h2 { font-size: 1.4rem; margin-top: 0; margin-bottom: 25px; color: var(--text-dark); border-bottom: 2px solid var(--border-light); padding-bottom: 10px; }
+        .form-group { margin-bottom: 25px; }
+        label { display: block; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 8px; }
+        select, input[type="number"] { width: 100%; padding: 14px; background-color: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; color: var(--text-dark); font-size: 16px; box-sizing: border-box; transition: all 0.2s; }
+        select:focus, input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15); outline: none; }
+        .checkbox-wrapper { display: flex; align-items: flex-start; gap: 12px; background: #ffffff; padding: 15px; border-radius: 8px; border: 1px dashed #cbd5e1; cursor: pointer; }
+        .checkbox-wrapper input { transform: scale(1.2); margin-top: 4px; }
+        .policy-group { display: flex; flex-direction: column; gap: 10px; }
+        .policy-option { display: flex; align-items: center; gap: 10px; background: #ffffff; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; cursor: pointer; }
+        .policy-option input { transform: scale(1.2); }
+        .btn-submit { width: 100%; background-color: var(--text-dark); color: #ffffff; padding: 16px; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-top: 10px; }
+        .btn-submit:hover { background-color: var(--primary); color: #000000; }
+        .display-side { padding: 40px; display: flex; flex-direction: column; justify-content: center; background: #ffffff; }
+        .welcome-screen { text-align: center; color: var(--text-muted); padding: 40px 0; }
+        .results-active { display: none; }
+        .results-active h2 { font-size: 1.8rem; margin-top: 0; color: var(--text-dark); margin-bottom: 30px; }
+        .metrics-block { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .metric-card { background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid var(--border-light); }
+        .metric-card .title { font-size: 0.85rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; }
+        .metric-card .value { font-size: 2rem; font-weight: 800; color: var(--text-dark); }
+        .metric-card .value span { font-size: 1rem; font-weight: 500; color: var(--text-muted); margin-left: 4px; }
+        .metric-card.highlight .value { color: var(--primary); }
+        .metric-card.danger { background: #fff5f5; border-color: #fed7d7; }
+        .metric-card.danger .value { color: var(--accent-red); }
+        .equivalents-wrapper { border-top: 2px solid var(--border-light); padding-top: 30px; }
+        .equivalents-wrapper h4 { margin: 0 0 20px 0; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dark); }
+        .eq-item { display: flex; align-items: center; gap: 15px; background: #f0fdf4; padding: 15px 20px; border-radius: 12px; margin-bottom: 12px; border: 1px solid #dcfce7; font-size: 1.05rem; }
+        .eq-item span { font-weight: 700; color: var(--primary); }
+        .footer-info { max-width: 1200px; margin: 40px auto 80px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+        @media (max-width: 768px) { .footer-info { grid-template-columns: 1fr; } }
+        .info-block h3 { font-size: 1.5rem; color: var(--text-dark); margin-top: 0; margin-bottom: 15px; }
+        .info-block p { color: var(--text-muted); font-size: 1.05rem; }
+        .expert-placeholder { background: #ffffff; border: 1px solid var(--border-light); border-radius: 16px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .expert-placeholder h4 { margin-top: 0; margin-bottom: 10px; color: var(--text-dark); }
+        .expert-placeholder p { font-style: italic; color: var(--text-muted); font-size: 0.95rem; margin: 0; }
+    </style>
+</head>
+<body>
+    <div class="hero-banner">
+        <div class="hero-container">
+            <h1>Build<span>Green</span></h1>
+            <div class="hero-tagline">Data-Driven Carbon Metrics for Infrastructure Architecture</div>
+            <div class="manifesto-box">
+                <p><strong>Did you know?</strong> Global concrete application contributes to roughly <strong>8% of total worldwide CO₂ emissions</strong>. In past historical generations, the reliance on heavy cement matrices was drastically minor. Today, structural concrete stands as the second most consumed resource on Earth after water. Academic models warn that exploding urban populations will multiply this volume exponentially by 2050.</p>
+                <div class="author-badge">The BuildGreen algorithm was custom engineered by <strong>Sugdiena Bozorboeva</strong> to empower pioneering designers to mitigate construction air footprint through advanced material optimization.</div>
+            </div>
+            <div class="kids-quote">"Our planet and the state in which it will be passed down to our children rests entirely in our own hands. Leverage BuildGreen — because we care about tomorrow."</div>
+        </div>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="calculator-container">
+            <div class="control-side">
+                <h2>System Controls</h2>
+                <div class="form-group">
+                    <label for="element">Structural Blueprint Category</label>
+                    <select id="element" onchange="autoConfigureMaterial()">
+                        <option value="foundation">Substructure Foundation (3000-4000 psi)</option>
+                        <option value="columns">Superstructure Columns/Beams (HSC Grade)</option>
+                        <option value="pavement">Civil Infrastructure Pavements (Recycled Aggregate)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="material">Material Composition Portfolio</label>
+                    <select id="material">
+                        <option value="standard">Traditional Cement Mix (C30/37 Baseline)</option>
+                        <option value="low_carbon">Low-Carbon Mix (40% SCM Replacements)</option>
+                        <option value="recycled">Recycled Aggregate Configuration</option>
+                        <option value="hsc">High-Strength Structural Concrete</option>
+                        <option value="uhpc">Ultra-High Performance Concrete (UHPC)</option>
+                        <option value="steel">Structural Heavy Steel (Per Metric Ton)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="rebar">
+                        <label for="rebar" style="margin:0; cursor:pointer; text-transform:none; font-weight:500;">Integrate Structural Rebar Matrix<br><small style="color: var(--primary);">Adds internal heavy steel carbon loading</small></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="quantity-label" for="quantity">Volume Dimension Required (m³)</label>
+                    <input type="number" id="quantity" min="1" placeholder="e.g., 250">
+                </div>
+                <div class="form-group">
+                    <label for="distance">Procurement Distance (Kilometers - km)</label>
+                    <input type="number" id="distance" min="0" placeholder="e.g., 50">
+                </div>
+                <div class="form-group">
+                    <label>Carbon Regulation Framework</label>
+                    <div class="policy-group">
+                        <div class="policy-option">
+                            <input type="radio" id="tax-us" name="policytax" value="50" checked>
+                            <label for="tax-us" style="margin:0; cursor:pointer; text-transform:none;">United States Policy ($50 / Ton)</label>
+                        </div>
+                        <div class="policy-option">
+                            <input type="radio" id="tax-eu" name="policytax" value="80">
+                            <label for="tax-eu" style="margin:0; cursor:pointer; text-transform:none;">European Union Mandate ($80 / Ton)</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="computeLifecycleMatrix()">Analyze Parameters</button>
+            </div>
+
+            <div class="display-side">
+                <div id="welcome-prompt" class="welcome-screen">
+                    <div style="font-size: 3.5rem; margin-bottom: 15px;">📊</div>
+                    <h3>System Awaiting Parameters</h3>
+                    <p>Adjust the configuration variables on the left controller panel and execute analysis to parse localized structural carbon indicators.</p>
+                </div>
+                <div id="analysis-results" class="results-active">
+                    <h2>Structural Assessment Output</h2>
+                    <div class="metrics-block">
+                        <div class="metric-card"><div class="title">Structural Lifespan</div><div class="value" id="res-span" style="font-size:1.35rem; font-weight:700; padding:7px 0;">-</div></div>
+                        <div class="metric-card"><div class="title">Procurement Budget Indication</div><div class="value" id="res-cost" style="font-size:1.15rem; font-weight:700; padding:10px 0; color:var(--text-muted);">-</div></div>
+                        <div class="metric-card highlight"><div class="title">Gross Accumulated CO₂</div><div class="value" id="res-co2">0<span>kg</span></div></div>
+                        <div class="metric-card danger"><div class="title">Projected Carbon Taxation</div><div class="value" id="res-tax">$0</div></div>
+                    </div>
+                    <div class="equivalents-wrapper">
+                        <h4>Environmental Offsetting Equivalents</h4>
+                        <div class="eq-item">🌲 Sequestration Capacity:&nbsp;<span id="eq-trees">0</span>&nbsp;mature trees absorbing carbon for 1 full calendar year.</div>
+                        <div class="eq-item">🚗 Automotive Expenditure:&nbsp;Equivalent to operating a standard vehicle for&nbsp;<span id="eq-car">0</span>&nbsp;kilometers.</div>
+                        <div class="eq-item">📱 Consumer Utility Grid:&nbsp;Equivalent to completing&nbsp;<span id="eq-phone">0</span>&nbsp;smartphone charging cycles.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-info">
+        <div class="info-block">
+            <h3>Methodological System Architecture</h3>
+            <p>The calculations engineered into BuildGreen parse empirical carbon data coefficients compiled across the global <em>Inventory of Carbon and Energy (ICE) Ledger</em> and standard structural directives published by the <em>American Concrete Institute (ACI)</em>. Transport freight variables model a standard heavy-vehicle logistics coefficient calibrated at 0.12 kg of CO₂ per metric-ton kilometer. Ecosystem sequestration data sets adopt the <em>US Environmental Protection Agency (EPA)</em> parameters modeling localized organic absorption rates.</p>
+        </div>
+        <div>
+            <div class="expert-placeholder">
+                <h4>🧪 Academic Review</h4>
+                <p>"Evaluation in progress. System metrics successfully align structural engineering choices with policy-level carbon taxation metrics." — Dr. Fatemeh Mohammadi Ghahsareh, Department of Civil, Environmental & Ocean Engineering, Stevens Institute of Technology (Pending Final Dataset Review).</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function autoConfigureMaterial() {
+            const element = document.getElementById('element').value;
+            const matSelect = document.getElementById('material');
+            if (element === "columns") matSelect.value = "hsc";
+            else if (element === "pavement") matSelect.value = "recycled";
+            else matSelect.value = "standard";
+        }
+
+        document.getElementById('material').addEventListener('change', function() {
+            const label = document.getElementById('quantity-label');
+            if (this.value === 'steel') label.textContent = "Weight Required (Metric Tons):";
+            else label.textContent = "Volume Required (Cubic Meters - m³):";
+        });
+
+        function computeLifecycleMatrix() {
+            const material = document.getElementById('material').value;
+            const qty = parseFloat(document.getElementById('quantity').value) || 0;
+            const dist = parseFloat(document.getElementById('distance').value) || 0;
+            const includeRebar = document.getElementById('rebar').checked;
+            const taxRate = parseFloat(document.querySelector('input[name="policytax"]:checked').value);
+
+            if (qty <= 0) {
+                alert("Please initialize a structural parameter volume value exceeding zero.");
+                return;
+            }
+
+            let co2PerUnit = 0; let lifespan = ""; let costIndicator = ""; let weightPerUnit = 2.4;
+
+            switch(material) {
+                case "standard": co2PerUnit = 300; lifespan = "50 – 100 Years"; costIndicator = "Baseline Metric"; weightPerUnit = 2.4; break;
+                case "low_carbon": co2PerUnit = 180; lifespan = "60 – 100 Years"; costIndicator = "Slightly Elevated"; weightPerUnit = 2.4; break;
+                case "recycled": co2PerUnit = 250; lifespan = "40 – 80 Years"; costIndicator = "Market Variable"; weightPerUnit = 2.4; break;
+                case "hsc": co2PerUnit = 400; lifespan = "80 – 120 Years"; costIndicator = "High Strength Grade"; weightPerUnit = 2.4; break;
+                case "uhpc": co2PerUnit = 900; lifespan = "100 – 150+ Years"; costIndicator = "Advanced Engineering Premium"; weightPerUnit = 2.4; break;
+                case "steel": co2PerUnit = 1800; lifespan = "100+ Years"; costIndicator = "High Material Premium"; weightPerUnit = 1.0; break;
+            }
+
+            let totalWeightTons = qty * weightPerUnit;
+            let rebarCo2 = 0;
+
+            if (includeRebar && material !== 'steel') {
+                const rebarWeightKg = qty * 85;
+                rebarCo2 = rebarWeightKg * 1.8;
+                totalWeightTons += (rebarWeightKg / 1000);
+            }
+
+            const materialCo2 = (co2PerUnit * qty) + rebarCo2;
+            const transportCo2 = totalWeightTons * dist * 0.12; 
+            const totalCo2 = materialCo2 + transportCo2;
+            const totalCo2Tons = totalCo2 / 1000;
+            const taxCost = totalCo2Tons * taxRate;
+
+            const treesRequired = totalCo2 / 22;
+            const carKm = totalCo2 * 4.1; 
+            const phoneCharges = totalCo2 * 121; 
+
+            document.getElementById('res-span').textContent = lifespan;
+            document.getElementById('res-cost').textContent = costIndicator;
+            document.getElementById('res-co2').innerHTML = Math.round(totalCo2).toLocaleString() + " <span>kg</span>";
+            document.getElementById('res-tax').textContent = "$" + Math.round(taxCost).toLocaleString();
+
+            document.getElementById('eq-trees').textContent = Math.round(treesRequired).toLocaleString();
+            document.getElementById('eq-car').textContent = Math.round(carKm).toLocaleString();
+            document.getElementById('eq-phone').textContent = Math.round(phoneCharges).toLocaleString();
+
+            document.getElementById('welcome-prompt').style.display = 'none';
+            document.getElementById('analysis-results').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
