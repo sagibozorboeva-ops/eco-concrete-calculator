@@ -17,7 +17,7 @@
         .manifesto-box p strong { color: var(--primary); font-size: 1.3rem; }
         .author-badge { font-size: 0.95rem; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1px; border-left: 3px solid var(--primary); padding-left: 10px; margin-top: 15px; }
         .main-wrapper { max-width: 1200px; margin: -50px auto 30px auto; padding: 0 20px; position: relative; z-index: 10; }
-        .calculator-container { background: var(--bg-card); border-radius: 24px; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06); border: 1px solid var(--border-light); display: grid; grid-template-columns: 420px 1fr; overflow: hidden; }
+        .calculator-container { background: var(--bg-card); border-radius: 24px; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06); border: 1px solid var(--border-light); display: grid; grid-template-columns: 450px 1fr; overflow: hidden; }
         @media (max-width: 968px) { .calculator-container { grid-template-columns: 1fr; } .main-wrapper { margin-top: 20px; } }
         .control-side { background-color: #f8fafc; padding: 40px 30px; border-right: 1px solid var(--border-light); }
         .control-side h2 { font-size: 1.4rem; margin-top: 0; margin-bottom: 25px; color: var(--text-dark); border-bottom: 2px solid var(--border-light); padding-bottom: 10px; }
@@ -30,8 +30,8 @@
         .policy-group { display: flex; flex-direction: column; gap: 10px; }
         .policy-option { display: flex; align-items: center; gap: 10px; background: #ffffff; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; cursor: pointer; }
         .policy-option input { transform: scale(1.2); }
-        .btn-submit { width: 100%; background-color: var(--text-dark); color: #ffffff; padding: 16px; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-top: 10px; }
-        .btn-submit:hover { background-color: var(--primary); color: #000000; }
+        .btn-submit { width: 100%; background-color: var(--text-dark); color: #ffffff; padding: 18px; border: none; border-radius: 12px; font-size: 1.15rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-top: 10px; }
+        .btn-submit:hover { background-color: var(--primary); color: #ffffff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2); }
         .submit-feedback-btn { display: block; max-width: 1200px; margin: 0 auto 60px auto; text-align: center; background-color: #0f172a; color: white; padding: 16px; border-radius: 12px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: all 0.2s; }
         .submit-feedback-btn:hover { background-color: #10b981; }
     </style>
@@ -52,6 +52,7 @@
 
 <div class="main-wrapper">
     <div class="calculator-container">
+        <!-- LEFT COLUMN: MAIN SYSTEM CONTROLS -->
         <div class="control-side">
             <h2>System Controls</h2>
             <div class="form-group">
@@ -106,6 +107,8 @@
                         <span>No Regulatory Carbon Penalty</span>
                     </label>
                 </div>
+            </div>
+        </div>
         <!-- RIGHT COLUMN: INTERACTIVE RESULTS MATRIX -->
         <div class="control-side" style="background-color: #ffffff; border-right: none;">
             <div id="welcome-prompt" style="text-align: center; padding: 40px 20px; border: 2px dashed var(--border-light); border-radius: 16px; background-color: #fafafa;">
@@ -156,9 +159,9 @@
         </div>
     </div>
 </div>
-</div>
-    <!-- ADVANCED LCA METRICS PANELS PLACED UNDERNEATH -->
-<div class="main-wrapper" style="margin-top: 0; margin-bottom: 30px;">
+
+<!-- ADVANCED INTERACTIVE PANELS PLACED UNDERNEATH -->
+<div class="main-wrapper" style="margin-top: 25px; margin-bottom: 25px;">
     <!-- INTERACTIVE SCM MIX OPTIMIZER -->
     <div style="background: #ffffff; border: 2px solid #10b981; padding: 22px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.03);">
         <h3 style="color: #065f46; font-size: 1.15rem; margin-top: 0; margin-bottom: 15px; border-bottom: 1px dashed #a7f3d0; padding-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
@@ -180,7 +183,6 @@
             </div>
         </div>
     </div>
-
     <!-- ADVANCED LCA ARCHITECTURE (EPD & BERKELEY BOUNDARIES) -->
     <div style="background: #f0fdf4; border: 2px solid #34d399; border-radius: 16px; padding: 22px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.03);">
         <h3 style="color: #065f46; font-size: 1.15rem; margin-top: 0; margin-bottom: 15px; border-bottom: 1px dashed #a7f3d0; padding-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
@@ -201,11 +203,14 @@
             </div>
         </div>
     </div>
-</div>
-    <button class="btn-submit" onclick="computeLifecycleMatrix()" style="max-width: 1200px; margin: 0 auto 30px auto; display: block; padding: 18px; font-size: 1.2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.15);">
+
+    <!-- MAIN MATRIX ANALYSIS EXECUTION BUTTON -->
+    <button class="btn-submit" onclick="computeLifecycleMatrix()">
         Run Advanced Lifecycle Analysis Matrix
     </button>
-    <!-- METHODOLOGY SECTION & ACADEMIC LOGS -->
+</div>
+
+<!-- METHODOLOGY SECTION & ACADEMIC LOGS -->
 <div style="max-width: 1200px; margin: 0 auto 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 400px; gap: 40px;">
     <div>
         <h2 style="font-size: 1.6rem; font-weight: 800; color: #0f172a; margin-top: 0; margin-bottom: 15px;">Methodological System Architecture</h2>
@@ -330,4 +335,5 @@
 </script>
 </body>
 </html>
+
 
