@@ -89,7 +89,27 @@
                     <label for="material">Material Composition Portfolio</label>
                     <select id="material">
                         <option value="standard">Traditional Cement Mix (C30/37 Baseline)</option>
-                        <option value="low_carbon">Low-Carbon Mix (40% SCM Replacements)</option>
+                        <option value="low_carbon">Low-Carbon Mix (40% SCM Replacements)</option> <!-- INTERACTIVE SCM OPTIMIZER (SOBOLEV FORMULA) -->
+<div class="scm-optimizer-group" style="margin-top: 15px; margin-bottom: 15px; background: #ffffff; border: 1px dashed #10b981; padding: 15px; border-radius: 8px;">
+    <label style="color: #0f172a; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; display: block; margin-bottom: 8px; letter-spacing: 0.5px;">
+        🌿 Supplementary Cementitious Materials (SCM) Substitution
+    </label>
+    <select id="scm-type-selector" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; background: #ffffff; margin-bottom: 10px;">
+        <option value="fly-ash">Class F Fly Ash (Coal Power Byproducts)</option>
+        <option value="slag" selected>Slag Cement (Blast Furnace Slag / GGBS)</option>
+        <option value="silica">Silica Fume (High-Density Micro-Silica)</option>
+        <option value="calcined-clay">Calcined Clay / Metakaolin (Low-Carbon Binder)</option>
+    </select>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+        <span style="font-size: 0.8rem; color: #475569; font-weight: 500;">Replacement Ratio:</span>
+        <span id="scm-percentage-display" style="font-size: 0.85rem; color: #10b981; font-weight: 700;">40%</span>
+    </div>
+    <input type="range" id="scm-slider" min="0" max="70" value="40" step="5" style="width: 100%; accent-color: #10b981; cursor: pointer;" oninput="document.getElementById('scm-percentage-display').innerText = this.value + '%'">
+    <p style="font-size: 0.7rem; color: #64748b; margin: 6px 0 0 0; line-height: 1.3;">
+        *Calibrates clinker-to-binder ratio variables to recalculate ultimate lifecycle performance matrix.
+    </p>
+</div>
+
                         <option value="recycled">Recycled Aggregate Configuration</option>
                         <option value="hsc">High-Strength Structural Concrete</option>
                         <option value="uhpc">Ultra-High Performance Concrete (UHPC)</option>
