@@ -7,7 +7,38 @@
     <style>
         :root { --primary: #10b981; --primary-hover: #059669; --bg-body: #f8fafc; --bg-card: #ffffff; --text-dark: #0f172a; --text-muted: #475569; --border-light: #e2e8f0; --accent-red: #ef4444; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-dark); margin: 0; padding: 0; line-height: 1.6; }
-       <div class="hero-banner">
+        .hero-banner { position: relative; background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.85)), url('https://unsplash.com'); background-size: cover; background-position: center; background-attachment: fixed; color: #ffffff; padding: 100px 20px; text-align: center; }
+        .hero-container { max-width: 850px; margin: 0 auto; }
+        .hero-container h1 { font-size: 4rem; font-weight: 800; margin: 0 0 10px 0; letter-spacing: -1px; color: #ffffff; }
+        .hero-container h1 span { color: var(--primary); }
+        .hero-tagline { font-size: 1.4rem; color: #e2e8f0; margin-bottom: 40px; font-weight: 300; text-transform: uppercase; letter-spacing: 2px; }
+        .manifesto-box { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.15); padding: 35px; border-radius: 16px; text-align: left; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .manifesto-box p { font-size: 1.15rem; color: #f1f5f9; margin: 0 0 20px 0; }
+        .manifesto-box p strong { color: var(--primary); font-size: 1.3rem; }
+        .author-badge { font-size: 0.95rem; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1px; border-left: 3px solid var(--primary); padding-left: 10px; margin-top: 15px; }
+        .main-wrapper { max-width: 1200px; margin: -50px auto 30px auto; padding: 0 20px; position: relative; z-index: 10; }
+        .calculator-container { background: var(--bg-card); border-radius: 24px; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06); border: 1px solid var(--border-light); display: grid; grid-template-columns: 420px 1fr; overflow: hidden; }
+        @media (max-width: 968px) { .calculator-container { grid-template-columns: 1fr; } .main-wrapper { margin-top: 20px; } }
+        .control-side { background-color: #f8fafc; padding: 40px 30px; border-right: 1px solid var(--border-light); }
+        .control-side h2 { font-size: 1.4rem; margin-top: 0; margin-bottom: 25px; color: var(--text-dark); border-bottom: 2px solid var(--border-light); padding-bottom: 10px; }
+        .form-group { margin-bottom: 25px; }
+        label { display: block; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 8px; }
+        select, input[type="number"] { width: 100%; padding: 14px; background-color: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; color: var(--text-dark); font-size: 16px; box-sizing: border-box; transition: all 0.2s; }
+        select:focus, input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15); outline: none; }
+        .checkbox-wrapper { display: flex; align-items: flex-start; gap: 12px; background: #ffffff; padding: 15px; border-radius: 8px; border: 1px dashed #cbd5e1; cursor: pointer; }
+        .checkbox-wrapper input { transform: scale(1.2); margin-top: 4px; }
+        .policy-group { display: flex; flex-direction: column; gap: 10px; }
+        .policy-option { display: flex; align-items: center; gap: 10px; background: #ffffff; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; cursor: pointer; }
+        .policy-option input { transform: scale(1.2); }
+        .btn-submit { width: 100%; background-color: var(--text-dark); color: #ffffff; padding: 16px; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-top: 10px; }
+        .btn-submit:hover { background-color: var(--primary); color: #000000; }
+        .submit-feedback-btn { display: block; max-width: 1200px; margin: 0 auto 60px auto; text-align: center; background-color: #0f172a; color: white; padding: 16px; border-radius: 12px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: all 0.2s; }
+        .submit-feedback-btn:hover { background-color: #10b981; }
+    </style>
+</head>
+<body>
+
+<div class="hero-banner">
     <div class="hero-container">
         <h1>Build<span>Green</span></h1>
         <div class="hero-tagline">Sustainable Engineering Framework</div>
@@ -21,10 +52,8 @@
 
 <div class="main-wrapper">
     <div class="calculator-container">
-        <!-- LEFT COLUMN: MAIN SYSTEM CONTROLS -->
         <div class="control-side">
             <h2>System Controls</h2>
-            
             <div class="form-group">
                 <label>Structural Blueprint Category</label>
                 <select id="element" onchange="autoConfigureMaterial()">
@@ -33,7 +62,6 @@
                     <option value="pavement">Industrial Hardscape / Pavement</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label>Material Composition Portfolio</label>
                 <select id="material">
@@ -45,17 +73,14 @@
                     <option value="steel">Structural Heavy Steel (Per Metric Ton)</option>
                 </select>
             </div>
-
-            <div class="form-group" style="margin-top: 15px;">
+            <div class="form-group">
                 <label id="quantity-label">Volume Required (Cubic Meters - m³):</label>
                 <input type="number" id="quantity" value="100" min="1">
             </div>
-
             <div class="form-group">
                 <label>Procurement Distance (Kilometers - KM)</label>
                 <input type="number" id="distance" value="50" min="0">
             </div>
-
             <div class="form-group">
                 <div class="checkbox-wrapper">
                     <input type="checkbox" id="rebar" checked>
@@ -65,7 +90,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group">
                 <label>Carbon Regulation Framework</label>
                 <div class="policy-group">
@@ -83,7 +107,6 @@
                     </label>
                 </div>
             </div>
-
             <button class="btn-submit" onclick="computeLifecycleMatrix()">Run Lifecycle Analysis Matrix</button>
         </div>
         <!-- RIGHT COLUMN: INTERACTIVE RESULTS MATRIX -->
@@ -137,7 +160,7 @@
     </div>
 </div>
 
-<!-- ADVANCED LCA METRICS PLACED UNDERNEATH -->
+<!-- ADVANCED LCA METRICS PANELS PLACED UNDERNEATH -->
 <div class="main-wrapper" style="margin-top: 0; margin-bottom: 30px;">
     <!-- INTERACTIVE SCM MIX OPTIMIZER -->
     <div style="background: #ffffff; border: 2px solid #10b981; padding: 22px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.03);">
