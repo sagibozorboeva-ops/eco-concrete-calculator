@@ -383,16 +383,73 @@
 
         let co2PerUnit = 0; let lifespan = ""; let costIndicator = ""; let weightPerUnit = 2.4;
 
-        switch(material) {
-            case "standard": co2PerUnit = 300; lifespan = "50 – 100 Years"; costIndicator = "Baseline Metric"; weightPerUnit = 2.4; break;
-            case "low_carbon": 
-                co2PerUnit = 300 * (1 - (scmSliderValue / 100)); 
-                lifespan = "60 – 100 Years"; costIndicator = "Slightly Elevated"; weightPerUnit = 2.4; break;
-            case "recycled": co2PerUnit = 250; lifespan = "40 – 80 Years"; costIndicator = "Market Variable"; weightPerUnit = 2.4; break;
-            case "hsc": co2PerUnit = 400; lifespan = "80 – 120 Years"; costIndicator = "High Strength Grade"; weightPerUnit = 2.4; break;
-            case "uhpc": co2PerUnit = 900; lifespan = "100 – 150+ Years"; costIndicator = "Advanced Engineering Premium"; weightPerUnit = 2.4; break;
-            case "steel": co2PerUnit = 1800; lifespan = "100+ Years"; costIndicator = "High Material Premium"; weightPerUnit = 1.0; break;
-        }
+       switch(material) {
+    case "standard": 
+        co2PerUnit = 300; 
+        lifespan = "50 - 100 Years"; 
+        costIndicator = "Baseline Metric"; 
+        weightPerUnit = 2.4; 
+        break;
+    
+    case "low_carbon":
+        co2PerUnit = 300 * (1 - (scmSliderValue / 100));
+        lifespan = "60 - 100 Years"; 
+        costIndicator = "Slightly Elevated"; 
+        weightPerUnit = 2.4; 
+        break;
+    
+    case "recycled": 
+        co2PerUnit = 250; 
+        lifespan = "40 - 80 Years"; 
+        costIndicator = "Market Variable"; 
+        weightPerUnit = 2.4; 
+        break;
+    
+    case "hsc": 
+        co2PerUnit = 400; 
+        lifespan = "80 - 120 Years"; 
+        costIndicator = "High Strength Grade"; 
+        weightPerUnit = 2.4; 
+        break;
+    
+    case "uhpc": 
+        co2PerUnit = 900; 
+        lifespan = "100 - 150 Years"; 
+        costIndicator = "Advanced Engineering Premium"; 
+        weightPerUnit = 2.4; 
+        break;
+    
+    case "steel": 
+        co2PerUnit = 1800; 
+        lifespan = "100+ Years"; 
+        costIndicator = "High Material Premium"; 
+        weightPerUnit = 7.85; 
+        break;
+
+    // 🟢 ДОБАВЛЕННЫЕ ОПТИМИЗИРОВАННЫЕ КЛАССЫ МАТЕРИАЛОВ:
+
+    case "lightweight": 
+        co2PerUnit = 220; 
+        lifespan = "50 - 80 Years"; 
+        costIndicator = "Specialty Aggregate Shift"; 
+        weightPerUnit = 1.8; // Легкий бетон весит меньше стандартного (1.8 т/м³ вместо 2.4)
+        break;
+
+    case "pervious": 
+        co2PerUnit = 210; 
+        lifespan = "20 - 40 Years"; 
+        costIndicator = "Eco-Hydrological Tier"; 
+        weightPerUnit = 2.0; // Пористый бетон имеет меньшую плотность
+        break;
+
+    case "geopolymer": 
+        co2PerUnit = 85; // Огромное сокращение CO2 (минус ~75% от стандарта)
+        lifespan = "80 - 150 Years"; 
+        costIndicator = "Advanced Sustainable Premium"; 
+        weightPerUnit = 2.4; 
+        break;
+}
+
 
         if (!isNaN(epdInputValue) && epdInputValue > 0 && material !== 'steel') {
             co2PerUnit = epdInputValue;
