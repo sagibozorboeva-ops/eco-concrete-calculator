@@ -40,12 +40,13 @@
 
 <div class="hero-banner">
     <div class="hero-container">
-        <h1>Build<span>Green</span></h1>
-        <div class="hero-tagline">Sustainable Engineering Framework</div>
-        <div class="manifesto-box">
-            <p><strong>The Built Environment Accounts for 39% of Global Carbon Emissions.</strong></p>
-            <p>This framework introduces empirical data transparency into early-stage structural material procurement, enabling engineering decisions to actively align with global climate policies.</p>
-            <div class="author-badge">Sugdiena Bozorboeva | Materials Lifecycle Research Portfolio</div>
+        <div style="background-color: #f0fdf4; border-left: 4px solid #16a34a; padding: 16px; margin-bottom: 24px; border-radius: 4px;">
+  <h2 style="font-size: 1.5rem; font-weight: bold; color: #14532d; margin: 0;">The Built Environment Accounts for 37%–40% of Global Carbon Emissions.</h2>
+  <p style="font-size: 0.95rem; color: #374151; line-height: 1.6; margin-top: 8px;">
+    BuildGreen is a multi-vector lifecycle assessment framework engineered to quantify initial structural carbon loading. By parsing empirical data across global inventory ledgers, this tool models complex cementitious binder substitutions, transportation logistics, and reinforcing steel matrices. It empowers structural engineers and procurement officers to make carbon-optimal decisions during the early blueprint phase, aligning regional infrastructure with international net-zero benchmarks.
+</p>
+</div>
+     <div class="author-badge">Sugdiena Bozorboeva | Materials Lifecycle Research Portfolio</div>
         </div>
     </div>
 </div>
@@ -57,22 +58,27 @@
             <h2>System Controls</h2>
             <div class="form-group">
                 <label>Structural Blueprint Category</label>
-                <select id="element" onchange="autoConfigureMaterial()">
-                    <option value="foundation">Substructure Foundation (3000-4000 psi)</option>
-                    <option value="columns">Superstructure Columns & Shears (6000-8000 psi)</option>
-                    <option value="pavement">Industrial Hardscape / Pavement</option>
-                </select>
+                <select id="material-composition" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #d1d5db;">
+  <option value="opc">ASTM C150 Type I/II (Traditional Ordinary Portland Cement / OPC)</option>
+  <option value="plc">ASTM C595 Type IL (Portland-Limestone Cement / PLC - Eco)</option>
+  <option value="scm_dynamic">Low-Carbon Mix (Dynamic SCM Optimization Matrix)</option>
+  <option value="lightweight">Lightweight Aggregate Structural Concrete (ASTM C330)</option>
+  <option value="uhpc">Ultra-High Performance Concrete (UHPC Matrix)</option>
+</select>
             </div>
             <div class="form-group">
                 <label>Material Composition Portfolio</label>
                 <select id="material">
-                    <option value="standard">Standard Portland Cement Concrete (100% Clinker)</option>
-                    <option value="low_carbon" selected>Low-Carbon Mix (Dynamic SCM Optimization)</option>
-                    <option value="recycled">Recycled Aggregate Configuration</option>
-                    <option value="hsc">High-Strength Structural Concrete</option>
-                    <option value="uhpc">Ultra-High Performance Concrete (UHPC)</option>
-                    <option value="steel">Structural Heavy Steel (Per Metric Ton)</option>
-                </select>
+                   <label style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 6px;">Select Advanced Cementitious Binder Matrix (ASTM / EN Standards):</label>
+<select id="material-composition" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #d1d5db; font-size: 0.9rem; background-color: white;">
+  <option value="opc">ASTM C150 Type I/II (Traditional Ordinary Portland Cement - High Carbon)</option>
+  <option value="plc">ASTM C595 Type IL (Portland-Limestone Cement / PLC - Eco-Optimized)</option>
+  <option value="he_cement">ASTM C150 Type III (High Early Strength / Rapid-Curing Framework)</option>
+  <option value="lightweight">ASTM C330 Structural Lightweight Concrete (Expanded Shale/Clay Matrix)</option>
+  <option value="uhpc">Ultra-High Performance Concrete (UHPC - Silica Fume & Ductile Matrix)</option>
+  <option value="pervious">Pervious Eco-Concrete Framework (Stormwater Management Optimization)</option>
+  <option value="geopolymer">Alkali-Activated Geopolymer Matrix (Zero-Clinker Slag/Fly Ash Binder)</option>
+</select>
             </div>
             <div class="form-group">
                 <label id="quantity-label">Volume Required (Cubic Meters - m³):</label>
@@ -85,10 +91,16 @@
             <div class="form-group">
                 <div class="checkbox-wrapper">
                     <input type="checkbox" id="rebar" checked>
-                    <div>
-                        <span style="display:block; font-weight:700; font-size:0.85rem; text-transform:uppercase; color:var(--text-dark);">Integrate Structural Rebar Matrix</span>
-                        <span style="display:block; font-size:0.75rem; color:var(--text-muted);">Adds internal heavy steel carbon loading</span>
-                    </div>
+                  <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 6px; margin-top: 20px;">
+  <label style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151;">Structural Rebar Reinforcement Matrix Intensity:</label>
+  <p style="font-size: 0.8rem; color: #64748b; margin: 2px 0 10px 0;">Adjust the mass of reinforcing steel embedded per cubic meter of concrete.</p>
+  <input type="range" id="rebar-intensity" min="0" max="150" value="60" style="width: 100%;">
+  <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #475569; margin-top: 4px;">
+    <span>0 kg/m³ (Plain Concrete)</span>
+    <span style="font-weight: bold; color: #0284c7;"><span id="val-rebar">60</span> kg/m³ (Selected)</span>
+    <span>150 kg/m³ (Heavy Structural)</span>
+  </div>
+</div>
                 </div>
             </div>
             <div class="form-group">
@@ -165,12 +177,38 @@
     <!-- INTERACTIVE SCM MIX OPTIMIZER -->
     <div style="background: #ffffff; border: 2px solid #10b981; padding: 22px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.03);">
         <h3 style="color: #065f46; font-size: 1.15rem; margin-top: 0; margin-bottom: 15px; border-bottom: 1px dashed #a7f3d0; padding-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-            🌿 SCM Mix Optimizer (Dr. Sobolev's Parameter)
+            🌿 SCM Mix Optimizer
         </h3>
-        <div style="display: grid; grid-template-columns: 250px 1fr; gap: 20px; align-items: center;">
-            <select id="scm-type-selector" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; background: #ffffff;">
-                <option value="slag" selected>Slag Cement (Blast Furnace Slag / GGBS)</option>
-                <option value="fly-ash">Class F Fly Ash (Coal Power Byproducts)</option>
+      <div style="margin-top: 20px; padding: 16px; border: 1px dashed #d97706; border-radius: 6px; background-color: #fffbeb;">
+  <h4 style="margin: 0 0 12px 0; color: #b45309; font-size: 1rem;">Supplementary Cementitious Materials (SCM) Dynamic Matrix</h4>
+  
+  <div style="margin-top: 12px;">
+    <label style="display: block; font-size: 0.875rem; color: #374151;">GGBFS (Granulated Blast Furnace Slag): <span id="val-slag">0</span>%</label>
+    <input type="range" id="scm-slag" min="0" max="70" value="0" style="width: 100%;" oninput="document.getElementById('val-slag').innerText = this.value">
+  </div>
+
+  <div style="margin-top: 12px;">
+    <label style="display: block; font-size: 0.875rem; color: #374151;">Class F Fly Ash (Low-Calcium Coal Byproducts): <span id="val-flyash-f">0</span>%</label>
+    <input type="range" id="scm-flyash-f" min="0" max="30" value="0" style="width: 100%;" oninput="document.getElementById('val-flyash-f').innerText = this.value">
+  </div>
+
+  <div style="margin-top: 12px;">
+    <label style="display: block; font-size: 0.875rem; color: #374151;">Class C Fly Ash (High-Calcium / Self-Cementing): <span id="val-flyash-c">0</span>%</label>
+    <input type="range" id="scm-flyash-c" min="0" max="40" value="0" style="width: 100%;" oninput="document.getElementById('val-flyash-c').innerText = this.value">
+  </div>
+
+  <div style="margin-top: 12px;">
+    <label style="display: block; font-size: 0.875rem; color: #374151;">Natural Pozzolans (Volcanic Ash / Calcined Clay): <span id="val-pozzolan">0</span>%</label>
+    <input type="range" id="scm-pozzolan" min="0" max="35" value="0" style="width: 100%;" oninput="document.getElementById('val-pozzolan').innerText = this.value">
+  </div>
+
+  <div style="margin-top: 12px;">
+    <label style="display: block; font-size: 0.875rem; color: #374151;">Interground Limestone Fine Matrix Filler: <span id="val-limestone">0</span>%</label>
+    <input type="range" id="scm-limestone" min="0" max="15" value="0" style="width: 100%;" oninput="document.getElementById('val-limestone').innerText = this.value">
+  </div>
+</div>
+
+
                 <option value="silica">Silica Fume (High-Density Micro-Silica)</option>
                 <option value="calcined-clay">Calcined Clay / Metakaolin (Low-Carbon Binder)</option>
             </select>
