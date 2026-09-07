@@ -88,20 +88,13 @@ body {
     text-transform: uppercase;
 }
 
-/* 2️⃣ Сетка калькулятора (Две колонки) */
 .calculator-container {
-    max-width: 1200px;
+    max-width: 1000px; /* Сделали сайт чуть компактнее и аккуратнее по ширине */
     margin: 40px auto 0 auto;
     padding: 0 20px;
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr; /* Левая колонка чуть шире */
-    gap: 30px;
-}
-
-@media (max-width: 900px) {
-    .calculator-container {
-        grid-template-columns: 1fr; /* На маленьких экранах в одну колонку */
-    }
+    display: flex;
+    flex-direction: column; /* 👈 Это заставляет все блоки встать в одну очередь друг за другом */
+    gap: 25px;
 }
 
 /* Карточки панелей */
@@ -556,82 +549,7 @@ input[type="range"] {
                     </label>
                 </div>
             </div>
-                     <!-- 7. SCM MIX OPTIMIZER (Интерактивная матрица добавок — скриншот 6) -->
-            <div class="panel-card scm-card">
-                <h3 class="panel-title">🌿 SCM MIX OPTIMIZER</h3>
-                <p class="scm-subtitle">Supplementary Cementitious Materials (SCM) Dynamic Matrix</p>
-                
-                <div class="scm-group">
-                    <label>GGBFS (Granulated Blast Furnace Slag): <span id="val-ggbfs">0</span>%</label>
-                    <input type="range" class="scm-slider" id="slider-ggbfs" min="0" max="40" value="0">
-                </div>
-
-                <div class="scm-group">
-                    <label>CLASS F FLY ASH (LOW-CALCIUM COAL BYPRODUCTS): <span id="val-flyash-f">0</span>%</label>
-                    <input type="range" class="scm-slider" id="slider-flyash-f" min="0" max="40" value="0">
-                </div>
-
-                <div class="scm-group">
-                    <label>CLASS C FLY ASH (HIGH-CALCIUM / SELF-CEMENTING): <span id="val-flyash-c">0</span>%</label>
-                    <input type="range" class="scm-slider" id="slider-flyash-c" min="0" max="40" value="0">
-                </div>
-
-                <div class="scm-group">
-                    <label>NATURAL POZZOLANS (VOLCANIC ASH / CALCINED CLAY): <span id="val-pozzolan">0</span>%</label>
-                    <input type="range" class="scm-slider" id="slider-pozzolan" min="0" max="40" value="0">
-                </div>
-
-                <div class="scm-group">
-                    <label>INTERGROUND LIMESTONE FINE MATRIX FILLER: <span id="val-limestone">0</span>%</label>
-                    <input type="range" class="scm-slider" id="slider-limestone" min="0" max="15" value="0">
-                </div>
-
-                <!-- 🚀 ИСПРАВЛЕНО: Превратили Silica Fume из обычного текста в работающий слайдер -->
-                <div class="scm-group">
-                    <label>SILICA FUME (HIGH-DENSITY MICRO-SILICA): <span id="val-silica">0</span>%</label>
-                    <input type="range" class="scm-slider" id="slider-silica" min="0" max="10" value="0">
-                </div>
-
-                <!-- 🚀 ИСПРАВЛЕНО: Превратили Calcined Clay из обычного текста в работающий слайдер -->
-                <div class="scm-group">
-                    <label>CALCINED CLAY / METAKAOLIN (LOW-CARBON BINDER): <span id="val-clay">0</span>%</label>
-                    <input type="range" class="scm-slider" id="slider-clay" min="0" max="30" value="0">
-                </div>
-
-                <div class="scm-total-container">
-                    <label>Cement Substitution Ratio: <span id="scm-total-ratio">0%</span></label>
-                    <div class="progress-bar-bg">
-                        <div id="scm-progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 8. ADVANCED LCA BOUNDARIES и кнопка запуска -->
-            <div class="panel-card">
-                <h3 class="panel-title">⚙ Advanced LCA Boundaries (Berkeley Framework)</h3>
-                <div class="form-group">
-                    <label for="epd-input">FACILITY EPD INPUT (KG CO₂-EQ/M³)</label>
-                    <input type="number" id="epd-input" placeholder="Optional verified EPD GWP (e.g., 220)">
-                </div>
-                
-                <div class="form-group">
-                    <label>LIFECYCLE IMPACT BOUNDARY MODE</label>
-                    <select disabled>
-                        <option>Cradle-to-Site (Berkeley Supply-Chain Model)</option>
-                    </select>
-                </div>
-                
-                <button type="button" id="run-matrix-btn" class="btn-primary">Run Advanced Lifecycle Analysis Matrix</button>
-            </div>
-        </section>
-
-
-        <!-- ======================================================== -->
-        <!-- ПРАВАЯ КОЛОНКА: ВЫВОД ЖИВЫХ РЕЗУЛЬТАТОВ И ОТЗЫВЫ ПРОФЕССОРОВ -->
-        <!-- ======================================================== -->
-        <section class="results-panel">
-            
-            <!-- Карточка вывода результатов (скриншот 2) -->
+           <!-- Карточка вывода результатов (скриншот 2) -->
             <div class="panel-card results-card">
                 <!-- Состояние ДО расчета -->
                 <div id="awaiting-params" class="awaiting-state">
@@ -687,6 +605,78 @@ input[type="range"] {
                     </div>
                 </div>
             </div>
+           <div class="panel-card">
+                <h3 class="panel-title">⚙ Advanced LCA Boundaries (Berkeley Framework)</h3>
+                <div class="form-group">
+                    <label for="epd-input">FACILITY EPD INPUT (KG CO₂-EQ/M³)</label>
+                    <input type="number" id="epd-input" placeholder="Optional verified EPD GWP (e.g., 220)">
+                </div>
+                
+                <div class="form-group">
+                    <label>LIFECYCLE IMPACT BOUNDARY MODE</label>
+                    <select disabled>
+                        <option>Cradle-to-Site (Berkeley Supply-Chain Model)</option>
+                    </select>
+                </div>
+                
+                <button type="button" id="run-matrix-btn" class="btn-primary">Run Advanced Lifecycle Analysis Matrix</button>
+            </div>
+                     <!-- 7. SCM MIX OPTIMIZER (Интерактивная матрица добавок — скриншот 6) -->
+            <div class="panel-card scm-card">
+                <h3 class="panel-title">🌿 SCM MIX OPTIMIZER</h3>
+                <p class="scm-subtitle">Supplementary Cementitious Materials (SCM) Dynamic Matrix</p>
+                
+                <div class="scm-group">
+                    <label>GGBFS (Granulated Blast Furnace Slag): <span id="val-ggbfs">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-ggbfs" min="0" max="40" value="0">
+                </div>
+
+                <div class="scm-group">
+                    <label>CLASS F FLY ASH (LOW-CALCIUM COAL BYPRODUCTS): <span id="val-flyash-f">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-flyash-f" min="0" max="40" value="0">
+                </div>
+
+                <div class="scm-group">
+                    <label>CLASS C FLY ASH (HIGH-CALCIUM / SELF-CEMENTING): <span id="val-flyash-c">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-flyash-c" min="0" max="40" value="0">
+                </div>
+
+                <div class="scm-group">
+                    <label>NATURAL POZZOLANS (VOLCANIC ASH / CALCINED CLAY): <span id="val-pozzolan">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-pozzolan" min="0" max="40" value="0">
+                </div>
+
+                <div class="scm-group">
+                    <label>INTERGROUND LIMESTONE FINE MATRIX FILLER: <span id="val-limestone">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-limestone" min="0" max="15" value="0">
+                </div>
+
+                <!-- 🚀 ИСПРАВЛЕНО: Превратили Silica Fume из обычного текста в работающий слайдер -->
+                <div class="scm-group">
+                    <label>SILICA FUME (HIGH-DENSITY MICRO-SILICA): <span id="val-silica">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-silica" min="0" max="10" value="0">
+                </div>
+
+                <!-- 🚀 ИСПРАВЛЕНО: Превратили Calcined Clay из обычного текста в работающий слайдер -->
+                <div class="scm-group">
+                    <label>CALCINED CLAY / METAKAOLIN (LOW-CARBON BINDER): <span id="val-clay">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-clay" min="0" max="30" value="0">
+                </div>
+
+                <div class="scm-total-container">
+                    <label>Cement Substitution Ratio: <span id="scm-total-ratio">0%</span></label>
+                    <div class="progress-bar-bg">
+                        <div id="scm-progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- ПРАВАЯ КОЛОНКА: ВЫВОД ЖИВЫХ РЕЗУЛЬТАТОВ И ОТЗЫВЫ ПРОФЕССОРОВ -->
+        <!-- ======================================================== -->
+        <section class="results-panel">
 
             <!-- Блок методологии -->
             <div class="panel-card architecture-card">
