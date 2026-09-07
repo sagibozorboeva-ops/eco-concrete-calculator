@@ -549,6 +549,22 @@ input[type="range"] {
                     </label>
                 </div>
             </div>
+            <div class="panel-card">
+                <h3 class="panel-title">⚙ Advanced LCA Boundaries (Berkeley Framework)</h3>
+                <div class="form-group">
+                    <label for="epd-input">FACILITY EPD INPUT (KG CO₂-EQ/M³)</label>
+                    <input type="number" id="epd-input" placeholder="Optional verified EPD GWP (e.g., 220)">
+                </div>
+                
+                <div class="form-group">
+                    <label>LIFECYCLE IMPACT BOUNDARY MODE</label>
+                    <select disabled>
+                        <option>Cradle-to-Site (Berkeley Supply-Chain Model)</option>
+                    </select>
+                </div>
+                
+                <button type="button" id="run-matrix-btn" class="btn-primary">Run Advanced Lifecycle Analysis Matrix</button>
+            </div>
            <!-- Карточка вывода результатов (скриншот 2) -->
             <div class="panel-card results-card">
                 <!-- Состояние ДО расчета -->
@@ -604,22 +620,6 @@ input[type="range"] {
                         </div>
                     </div>
                 </div>
-            </div>
-           <div class="panel-card">
-                <h3 class="panel-title">⚙ Advanced LCA Boundaries (Berkeley Framework)</h3>
-                <div class="form-group">
-                    <label for="epd-input">FACILITY EPD INPUT (KG CO₂-EQ/M³)</label>
-                    <input type="number" id="epd-input" placeholder="Optional verified EPD GWP (e.g., 220)">
-                </div>
-                
-                <div class="form-group">
-                    <label>LIFECYCLE IMPACT BOUNDARY MODE</label>
-                    <select disabled>
-                        <option>Cradle-to-Site (Berkeley Supply-Chain Model)</option>
-                    </select>
-                </div>
-                
-                <button type="button" id="run-matrix-btn" class="btn-primary">Run Advanced Lifecycle Analysis Matrix</button>
             </div>
                      <!-- 7. SCM MIX OPTIMIZER (Интерактивная матрица добавок — скриншот 6) -->
             <div class="panel-card scm-card">
