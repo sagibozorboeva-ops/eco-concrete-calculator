@@ -1,502 +1,917 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuildGreen | Sustainable Engineering Framework</title>
+    <!-- Встроенные CSS стили мы добавим чуть позже в секцию ниже -->
     <style>
-        :root { --primary: #10b981; --primary-hover: #059669; --bg-body: #f8fafc; --bg-card: #ffffff; --text-dark: #0f172a; --text-muted: #475569; --border-light: #e2e8f0; --accent-red: #ef4444; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-dark); margin: 0; padding: 0; line-height: 1.6; }
-        .hero-banner { position: relative; background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.85)), url('https://unsplash.com'); background-size: cover; background-position: center; background-attachment: fixed; color: #ffffff; padding: 100px 20px; text-align: center; }
-        .hero-container { max-width: 850px; margin: 0 auto; }
-        .hero-container h1 { font-size: 4rem; font-weight: 800; margin: 0 0 10px 0; letter-spacing: -1px; color: #ffffff; }
-        .hero-container h1 span { color: var(--primary); }
-        .hero-tagline { font-size: 1.4rem; color: #e2e8f0; margin-bottom: 40px; font-weight: 300; text-transform: uppercase; letter-spacing: 2px; }
-        .manifesto-box { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.15); padding: 35px; border-radius: 16px; text-align: left; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .manifesto-box p { font-size: 1.15rem; color: #f1f5f9; margin: 0 0 20px 0; }
-        .manifesto-box p strong { color: var(--primary); font-size: 1.3rem; }
-        .author-badge { font-size: 0.95rem; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1px; border-left: 3px solid var(--primary); padding-left: 10px; margin-top: 15px; }
-        .main-wrapper { max-width: 1200px; margin: -50px auto 30px auto; padding: 0 20px; position: relative; z-index: 10; }
-        .calculator-container { background: var(--bg-card); border-radius: 24px; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06); border: 1px solid var(--border-light); display: grid; grid-template-columns: 450px 1fr; overflow: hidden; }
-        @media (max-width: 968px) { .calculator-container { grid-template-columns: 1fr; } .main-wrapper { margin-top: 20px; } }
-        .control-side { background-color: #f8fafc; padding: 40px 30px; border-right: 1px solid var(--border-light); }
-        .control-side h2 { font-size: 1.4rem; margin-top: 0; margin-bottom: 25px; color: var(--text-dark); border-bottom: 2px solid var(--border-light); padding-bottom: 10px; }
-        .form-group { margin-bottom: 25px; }
-        label { display: block; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 8px; }
-        select, input[type="number"] { width: 100%; padding: 14px; background-color: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; color: var(--text-dark); font-size: 16px; box-sizing: border-box; transition: all 0.2s; }
-        select:focus, input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15); outline: none; }
-        .checkbox-wrapper { display: flex; align-items: flex-start; gap: 12px; background: #ffffff; padding: 15px; border-radius: 8px; border: 1px dashed #cbd5e1; cursor: pointer; }
-        .checkbox-wrapper input { transform: scale(1.2); margin-top: 4px; }
-        .policy-group { display: flex; flex-direction: column; gap: 10px; }
-        .policy-option { display: flex; align-items: center; gap: 10px; background: #ffffff; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; cursor: pointer; }
-        .policy-option input { transform: scale(1.2); }
-        .btn-submit { width: 100%; background-color: var(--text-dark); color: #ffffff; padding: 18px; border: none; border-radius: 12px; font-size: 1.15rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-top: 10px; }
-        .btn-submit:hover { background-color: var(--primary); color: #ffffff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2); }
-        .submit-feedback-btn { display: block; max-width: 1200px; margin: 0 auto 60px auto; text-align: center; background-color: #0f172a; color: white; padding: 16px; border-radius: 12px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: all 0.2s; }
-        .submit-feedback-btn:hover { background-color: #10b981; }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>BuildGreen</title>
-    <style>
-        .hero-section {
-          background-color: #ffffff;
-          padding: 60px 20px 40px 20px;
-          text-align: center;
-          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .main-title {
-          font-size: 3.5rem;
-          font-weight: 700;
-          color: #4a5568;
-          margin: 0 0 5px 0;
-          letter-spacing: -1px;
-        }
-        .main-title span {
-          color: #2f855a;
-        }
-        .subtitle {
-          font-size: 1rem;
-          color: #718096;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          margin: 0 0 40px 0;
-        }
-        .info-card {
-          max-width: 850px;
-          margin: 0 auto;
-          background-color: #f7fafc;
-          border: 1px solid #e2e8f0;
-          border-radius: 16px;
-          padding: 30px 40px;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-          text-align: left;
-        }
-        .card-highlight {
-          font-size: 1.25rem;
-          color: #2f855a;
-          font-weight: 600;
-          margin: 0 0 15px 0;
-        }
-        .card-description {
-          font-size: 1rem;
-          color: #4a5568;
-          line-height: 1.6;
-          margin: 0 0 20px 0;
-        }
-        .card-divider {
-          height: 1px;
-          background-color: #e2e8f0;
-          margin-bottom: 15px;
-        }
-        .card-footer {
-          font-size: 0.8rem;
-          color: #a0aec0;
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          margin: 0;
-        }
+/* Обнуление базовых отступов */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding-bottom: 60px;
+}
+
+/* 1️⃣ Заголовок сайта (Hero Section) в точности как на первой картинке */
+.hero-section {
+    background-color: #ffffff;
+    padding: 60px 20px 40px 20px;
+    text-align: center;
+}
+
+.main-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 5px;
+    letter-spacing: -1px;
+}
+
+.main-title span {
+    color: #16a34a; /* Насыщенный зеленый */
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: #64748b;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+/* Светлая карточка с описанием */
+.info-card {
+    max-width: 850px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 30px 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    text-align: left;
+}
+
+.card-highlight {
+    font-size: 1.25rem;
+    color: #16a34a;
+    font-weight: 600;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.card-description {
+    font-size: 1rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.card-divider {
+    height: 1px;
+    background-color: #e2e8f0;
+    margin-bottom: 15px;
+}
+
+.card-footer {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* 2️⃣ Сетка калькулятора (Две колонки) */
+.calculator-container {
+    max-width: 1200px;
+    margin: 40px auto 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr; /* Левая колонка чуть шире */
+    gap: 30px;
+}
+
+@media (max-width: 900px) {
+    .calculator-container {
+        grid-template-columns: 1fr; /* На маленьких экранах в одну колонку */
+    }
+}
+
+/* Карточки панелей */
+.panel-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+}
+
+.panel-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #1e293b;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 10px;
+}
+
+/* Формы, выпадающие списки и инпуты */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+select, input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #334155;
+    background-color: #f8fafc;
+    outline: none;
+    transition: all 0.2s;
+}
+
+select:focus, input[type="number"]:focus {
+    border-color: #16a34a;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+/* Стилизация слайдеров (Дизайн под скриншоты) */
+.rebar-container, .scm-group {
+    margin-bottom: 20px;
+}
+
+.rebar-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.rebar-header label {
+    font-size: 0.85rem;
+    color: #334155;
+}
+
+.rebar-subtext {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: #16a34a;
+    margin: 8px 0;
+}
+
+.slider-labels, .scm-group label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.selected-badge {
+    background-color: #e2f5e9;
+    color: #16a34a;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* Радиокнопки налогов */
+.tax-container {
+    margin-top: 25px;
+}
+
+.tax-main-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.radio-label:hover {
+    background-color: #f8fafc;
+}
+
+.radio-label input[type="radio"] {
+    accent-color: #16a34a;
+    width: 18px;
+    height: 18px;
+}
+
+/* Зеленая карточка SCM Optimizer */
+.scm-card {
+    border-left: 4px solid #16a34a;
+}
+
+.scm-subtitle {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 15px;
+}
+
+.scm-group label {
+    font-weight: 500;
+    color: #334155;
+    margin-bottom: 4px;
+}
+
+/* Прогресс-бар лимита добавок (40%) */
+.scm-total-container {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #e2e8f0;
+}
+
+.scm-total-container label {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 8px;
+    background-color: #f1f5f9;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: #16a34a;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-bar-fill.error-state {
+    background-color: #ef4444; /* Краснеет при превышении лимита */
+}
+
+/* Кнопка расчета */
+.btn-primary {
+    width: 100%;
+    background-color: #0f172a;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #1e293b;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+/* Правая сторона — блок ожидания результатов */
+.awaiting-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #64748b;
+}
+
+.awaiting-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.awaiting-state h3 {
+    font-size: 1.2rem;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+.awaiting-state p {
+    font-size: 0.9rem;
+    max-width: 320px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* Стили живых результатов */
+.results-state {
+    animation: fadeIn 0.4s ease-out;
+}
+
+.results-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.results-header p {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.results-header h2 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-top: 5px;
+}
+
+/* Сетка параметров под главным числом */
+.metrics-subgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.metric-box {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+}
+
+.metric-box span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.metric-box strong {
+    font-size: 1.1rem;
+    color: #1e293b;
+}
+
+/* Эквиваленты US EPA */
+.equivalency-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #475569;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.equiv-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.equiv-icon {
+    font-size: 1.4rem;
+}
+
+/* Блок архитектуры методологии */
+.architecture-card p {
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.6;
+}
+
+/* Блок отзывов профессоров */
+.review-box {
+    background-color: #f8fafc;
+    border-left: 3px solid #cbd5e1;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+.review-quote {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #334155;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.review-author {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #64748b;
+}
+
+/* Анимация плавного появления результатов */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
     </style>
-    
 </head>
 <body>
 
+    <!-- ВЕРХНЯЯ СЕКЦИЯ (HERO SECTION) — Дизайн в точности как на первой картинке -->
     <header class="hero-section">
-      <h1 class="main-title">Build<span>Green</span></h1>
-      <p class="subtitle">SUSTAINABLE ENGINEERING FRAMEWORK</p>
+        <h1 class="main-title">Build<span>Green</span></h1>
+        <p class="subtitle">SUSTAINABLE ENGINEERING FRAMEWORK</p>
 
-      <div class="info-card">
-        <h2 class="card-highlight">The Built Environment Accounts for 37%–40% of Global Carbon Emissions.</h2>
-        <p class="card-description">
-          BuildGreen is a multi-vector lifecycle assessment framework engineered to quantify initial structural carbon loading. By parsing empirical data across global inventory ledgers, this tool models complex cementitious binder substitutions, transportation logistics, and reinforcing steel matrices. It empowers structural engineers and procurement officers to make carbon-optimal decisions during the early blueprint phase, aligning regional infrastructure with international net-zero benchmarks.
-        </p>
-        <div class="card-divider"></div>
-        <p class="card-footer">SUGDIENA BOZORBOEVA | MATERIALS LIFECYCLE RESEARCH PORTFOLIO</p>
-      </div>
+        <!-- Светлая карточка с описанием проекта -->
+        <div class="info-card">
+            <h2 class="card-highlight">The Built Environment Accounts for 37%–40% of Global Carbon Emissions.</h2>
+            <p class="card-description">
+                BuildGreen is a multi-vector lifecycle assessment framework engineered to quantify initial structural carbon loading. By parsing empirical data across global inventory ledgers, this tool models complex cementitious binder substitutions, transportation logistics, and reinforcing steel matrices. It empowers structural engineers and procurement officers to make carbon-optimal decisions during the early blueprint phase, aligning regional infrastructure with international net-zero benchmarks.
+            </p>
+            <div class="card-divider"></div>
+            <p class="card-footer">SUGDIENA BOZORBOEVA | MATERIALS LIFECYCLE RESEARCH PORTFOLIO</p>
+        </div>
     </header>
 
-</body>
-</html>
-</div>
-
-<div class="main-wrapper">
-    <div class="calculator-container">
-        <!-- LEFT COLUMN: MAIN SYSTEM CONTROLS -->
-        <div class="control-side">
-            <h2>System Controls</h2>
-            <div class="form-group">
-                <label>Structural Blueprint Category</label>
-                <select id="material-composition" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #d1d5db;">
-  <option value="opc">ASTM C150 Type I/II (Traditional Ordinary Portland Cement / OPC)</option>
-  <option value="plc">ASTM C595 Type IL (Portland-Limestone Cement / PLC - Eco)</option>
-  <option value="scm_dynamic">Low-Carbon Mix (Dynamic SCM Optimization Matrix)</option>
-  <option value="lightweight">Lightweight Aggregate Structural Concrete (ASTM C330)</option>
-  <option value="uhpc">Ultra-High Performance Concrete (UHPC Matrix)</option>
-</select>
-            </div>
-            <div class="form-group">
-                <label>Material Composition Portfolio</label>
-                <label style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 6px;">Material Composition Portfolio (ASTM / EN Standards):</label>
-<select id="material-composition" style="width: 100%; max-width: 100%; box-sizing: border-box; padding: 10px; border-radius: 6px; border: 1px solid #d1d5db; font-size: 0.85rem; background-color: white; white-space: normal; height: auto; word-wrap: break-word;">
-  <option value="opc">ASTM C150 Type I/II (Traditional Ordinary Portland Cement - High Carbon)</option>
-  <option value="plc">ASTM C595 Type IL (Portland-Limestone Cement / PLC - Eco-Optimized)</option>
-  <option value="he_cement">ASTM C150 Type III (High Early Strength / Rapid-Curing Framework)</option>
-  <option value="lightweight">ASTM C330 Structural Lightweight Concrete (Expanded Shale/Clay Matrix)</option>
-  <option value="uhpc">Ultra-High Performance Concrete (UHPC - Silica Fume & Ductile Matrix)</option>
-  <option value="pervious">Pervious Eco-Concrete Framework (Stormwater Management Optimization)</option>
-  <option value="geopolymer">Alkali-Activated Geopolymer Matrix (Zero-Clinker Slag/Fly Ash Binder)</option>
-</select>
-            </div>
-            <div class="form-group">
-                <label id="quantity-label">Volume Required (Cubic Meters - m³):</label>
-                <input type="number" id="quantity" value="100" min="1">
-            </div>
-            <div class="form-group">
-                <label>Procurement Distance (Kilometers - KM)</label>
-                <input type="number" id="distance" value="50" min="0">
-            </div>
-            <div class="form-group">
-                <div class="checkbox-wrapper">
-                    <input type="checkbox" id="rebar" checked>
-                  <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 6px; margin-top: 20px;">
-  <label style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151;">Structural Rebar Reinforcement Matrix Intensity:</label>
-  <p style="font-size: 0.8rem; color: #64748b; margin: 2px 0 10px 0;">Adjust the mass of reinforcing steel embedded per cubic meter of concrete.</p>
-  <input type="range" id="rebar-intensity" min="0" max="150" value="60" style="width: 100%;">
-  <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #475569; margin-top: 4px;">
-    <span>0 kg/m³ (Plain Concrete)</span>
-    <span style="font-weight: bold; color: #0284c7;"><span id="val-rebar">60</span> kg/m³ (Selected)</span>
-    <span>150 kg/m³ (Heavy Structural)</span>
-  </div>
-</div>
+    <!-- Основной контейнер для калькулятора (Grid-сетка: слева элементы управления, справа результаты) -->
+    <main class="calculator-container">
+        <!-- ЛЕВАЯ КОЛОНКА: ПАНЕЛЬ НАСТРОЕК (CONTROLS) -->
+        <section class="controls-panel">
+            
+            <div class="panel-card">
+                <h3 class="panel-title">System Controls</h3>
+                
+                <!-- 1. Категория конструкции -->
+                <div class="form-group">
+                    <label for="blueprint-category">STRUCTURAL BLUEPRINT CATEGORY</label>
+                    <select id="blueprint-category">
+                        <option value="standard">ASTM C150 Type I/II (Traditional Ordinary Portland Cement / OPC)</option>
+                        <option value="plc">ASTM C595 Type IL (Portland-Limestone Cement / PLC - Eco)</option>
+                        <option value="low_carbon">Low-Carbon Mix (Dynamic SCM Optimization Matrix)</option>
+                        <option value="lightweight">Lightweight Aggregate Structural Concrete (ASTM C330)</option>
+                        <option value="uhpc">Ultra-High Performance Concrete (UHPC Matrix)</option>
+                    </select>
                 </div>
-            </div>
-            <div class="form-group">
-                <label>Carbon Regulation Framework</label>
-                <div class="policy-group">
-                    <label class="policy-option">
-                        <input type="radio" name="policytax" value="50" checked>
+
+                <!-- 2. Расширенное портфолио материалов -->
+                <div class="form-group">
+                    <label for="material-portfolio">MATERIAL COMPOSITION PORTFOLIO (ASTM / EN STANDARDS):</label>
+                    <select id="material-portfolio">
+                        <option value="standard">ASTM C150 Type I/II (Traditional Ordinary Portland Cement - High Carbon)</option>
+                        <option value="plc">ASTM C595 Type IL (Portland-Limestone Cement / PLC - Eco-Optimized)</option>
+                        <option value="hsc">ASTM C150 Type III (High Early Strength / Rapid-Curing Framework)</option>
+                        <option value="lightweight">ASTM C330 Structural Lightweight Concrete (Expanded Shale/Clay Matrix)</option>
+                        <option value="uhpc">Ultra-High Performance Concrete (UHPC - Silica Fume & Ductile Matrix)</option>
+                        <option value="pervious">Pervious Eco-Concrete Framework (Stormwater Management Optimization)</option>
+                        <option value="geopolymer">Alkali-Activated Geopolymer Matrix (Zero-Clinker Slag/Fly Ash Binder)</option>
+                    </select>
+                </div>
+
+                <!-- 3. Объем -->
+                <div class="form-group">
+                    <label for="volume">VOLUME REQUIRED (CUBIC METERS - M³):</label>
+                    <input type="number" id="volume" value="100" min="1">
+                </div>
+
+                <!-- 4. Дистанция доставки -->
+                <div class="form-group">
+                    <label for="distance">PROCUREMENT DISTANCE (KILOMETERS - KM):</label>
+                    <input type="number" id="distance" value="50" min="0">
+                </div>
+
+                <!-- 5. Стальная арматура -->
+                <div class="rebar-container">
+                    <div class="rebar-header">
+                        <input type="checkbox" id="include-rebar" checked>
+                        <label for="include-rebar"><strong>STRUCTURAL REBAR REINFORCEMENT MATRIX INTENSITY:</strong></label>
+                    </div>
+                    <p class="rebar-subtext">Adjust the mass of reinforcing steel embedded per cubic meter of concrete.</p>
+                    <input type="range" id="rebar-slider" min="0" max="150" value="60" step="5">
+                    <div class="slider-labels">
+                        <span>0 kg/m³ (Plain)</span>
+                        <span id="rebar-val-label" class="selected-badge">60 kg/m³</span>
+                        <span>150 kg/m³ (Heavy)</span>
+                    </div>
+                </div>
+
+                <!-- 6. Углеродные налоги -->
+                <div class="tax-container">
+                    <label class="tax-main-label">CARBON REGULATION FRAMEWORK</label>
+                    
+                    <label class="radio-label">
+                        <input type="radio" name="policy-tax" value="50" checked>
                         <span>United States Policy ($50 / Ton)</span>
                     </label>
-                    <label class="policy-option">
-                        <input type="radio" name="policytax" value="100">
+                    
+                    <label class="radio-label">
+                        <input type="radio" name="policy-tax" value="100">
                         <span>Aggressive Global Target ($100 / Ton)</span>
                     </label>
-                    <label class="policy-option">
-                        <input type="radio" name="policytax" value="0">
+                    
+                    <label class="radio-label">
+                        <input type="radio" name="policy-tax" value="0">
                         <span>No Regulatory Carbon Penalty</span>
                     </label>
                 </div>
             </div>
-        </div>
-        <!-- RIGHT COLUMN: INTERACTIVE RESULTS MATRIX -->
-        <div class="control-side" style="background-color: #ffffff; border-right: none;">
-            <div id="welcome-prompt" style="text-align: center; padding: 40px 20px; border: 2px dashed var(--border-light); border-radius: 16px; background-color: #fafafa;">
-                <span style="font-size: 2.5rem; display: block; margin-bottom: 15px;">📊</span>
-                <h3 style="margin: 0 0 10px 0; color: var(--text-dark);">Awaiting Core Parameters</h3>
-                <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Initialize values in the structural controls ledger and click the analysis matrix execution button to compile lifecycle results.</p>
+                     <!-- 7. SCM MIX OPTIMIZER (Интерактивная матрица добавок — скриншот 6) -->
+            <div class="panel-card scm-card">
+                <h3 class="panel-title">🌿 SCM MIX OPTIMIZER</h3>
+                <p class="scm-subtitle">Supplementary Cementitious Materials (SCM) Dynamic Matrix</p>
+                
+                <div class="scm-group">
+                    <label>GGBFS (Granulated Blast Furnace Slag): <span id="val-ggbfs">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-ggbfs" min="0" max="40" value="0">
+                </div>
+
+                <div class="scm-group">
+                    <label>CLASS F FLY ASH (LOW-CALCIUM COAL BYPRODUCTS): <span id="val-flyash-f">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-flyash-f" min="0" max="40" value="0">
+                </div>
+
+                <div class="scm-group">
+                    <label>CLASS C FLY ASH (HIGH-CALCIUM / SELF-CEMENTING): <span id="val-flyash-c">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-flyash-c" min="0" max="40" value="0">
+                </div>
+
+                <div class="scm-group">
+                    <label>NATURAL POZZOLANS (VOLCANIC ASH / CALCINED CLAY): <span id="val-pozzolan">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-pozzolan" min="0" max="40" value="0">
+                </div>
+
+                <div class="scm-group">
+                    <label>INTERGROUND LIMESTONE FINE MATRIX FILLER: <span id="val-limestone">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-limestone" min="0" max="15" value="0">
+                </div>
+
+                <!-- 🚀 ИСПРАВЛЕНО: Превратили Silica Fume из обычного текста в работающий слайдер -->
+                <div class="scm-group">
+                    <label>SILICA FUME (HIGH-DENSITY MICRO-SILICA): <span id="val-silica">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-silica" min="0" max="10" value="0">
+                </div>
+
+                <!-- 🚀 ИСПРАВЛЕНО: Превратили Calcined Clay из обычного текста в работающий слайдер -->
+                <div class="scm-group">
+                    <label>CALCINED CLAY / METAKAOLIN (LOW-CARBON BINDER): <span id="val-clay">0</span>%</label>
+                    <input type="range" class="scm-slider" id="slider-clay" min="0" max="30" value="0">
+                </div>
+
+                <div class="scm-total-container">
+                    <label>Cement Substitution Ratio: <span id="scm-total-ratio">0%</span></label>
+                    <div class="progress-bar-bg">
+                        <div id="scm-progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
             </div>
 
-            <div id="analysis-results" style="display: none;">
-                <div style="background-color: #0f172a; color: #ffffff; padding: 20px; border-radius: 16px; text-align: center; margin-bottom: 20px;">
-                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; display: block; margin-bottom: 5px;">Total Net Carbon Footprint</span>
-                    <h2 id="res-co2" style="font-size: 2.5rem; font-weight: 800; margin: 0; color: #ffffff;">0 <span>kg</span></h2>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-                    <div style="background: var(--bg-body); padding: 15px; border-radius: 12px; border: 1px solid var(--border-light);">
-                        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;">Structural Lifespan</span>
-                        <span id="res-span" style="font-weight: 700; color: var(--text-dark);">50 Years</span>
-                    </div>
-                    <div style="background: var(--bg-body); padding: 15px; border-radius: 12px; border: 1px solid var(--border-light);">
-                        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;">Carbon Regulation Tax</span>
-                        <span id="res-tax" style="font-weight: 700; color: #ef4444;">$0</span>
-                    </div>
-                </div>
-                <div style="background: var(--bg-body); padding: 15px; border-radius: 12px; border: 1px solid var(--border-light); margin-bottom: 20px;">
-                    <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;">Financial Asset Classification</span>
-                    <span id="res-cost" style="font-weight: 700; color: var(--text-dark);">Baseline Metric</span>
+            <!-- 8. ADVANCED LCA BOUNDARIES и кнопка запуска -->
+            <div class="panel-card">
+                <h3 class="panel-title">⚙ Advanced LCA Boundaries (Berkeley Framework)</h3>
+                <div class="form-group">
+                    <label for="epd-input">FACILITY EPD INPUT (KG CO₂-EQ/M³)</label>
+                    <input type="number" id="epd-input" placeholder="Optional verified EPD GWP (e.g., 220)">
                 </div>
                 
-                <h4 style="margin: 0 0 10px 0; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; color: var(--text-muted);">Equivalency Analysis Vectors</h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
-                    <div style="background: #ffffff; border: 1px solid var(--border-light); padding: 10px; border-radius: 8px; text-align: center;">
-                        <span style="font-size: 1.2rem; display: block; margin-bottom: 2px;">🌲</span>
-                        <span id="eq-trees" style="font-weight: 700; font-size: 0.95rem; display: block;">0</span>
-                        <span style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">Tree-Years</span>
+                <div class="form-group">
+                    <label>LIFECYCLE IMPACT BOUNDARY MODE</label>
+                    <select disabled>
+                        <option>Cradle-to-Site (Berkeley Supply-Chain Model)</option>
+                    </select>
+                </div>
+                
+                <button type="button" id="run-matrix-btn" class="btn-primary">Run Advanced Lifecycle Analysis Matrix</button>
+            </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- ПРАВАЯ КОЛОНКА: ВЫВОД ЖИВЫХ РЕЗУЛЬТАТОВ И ОТЗЫВЫ ПРОФЕССОРОВ -->
+        <!-- ======================================================== -->
+        <section class="results-panel">
+            
+            <!-- Карточка вывода результатов (скриншот 2) -->
+            <div class="panel-card results-card">
+                <!-- Состояние ДО расчета -->
+                <div id="awaiting-params" class="awaiting-state">
+                    <div class="awaiting-icon">📊</div>
+                    <h3>Awaiting Core Parameters</h3>
+                    <p>Initialize values in the structural controls ledger and click the analysis matrix execution button to compile lifecycle results.</p>
+                </div>
+
+                <!-- Состояние ПОСЛЕ расчета (заполняется через JS) -->
+                <div id="analysis-results" class="results-state" style="display: none;">
+                    <div class="results-header">
+                        <p>Total Net Carbon Footprint</p>
+                        <h2 id="res-co2">0 <span>kg CO₂-eq</span></h2>
                     </div>
-                    <div style="background: #ffffff; border: 1px solid var(--border-light); padding: 10px; border-radius: 8px; text-align: center;">
-                        <span style="font-size: 1.2rem; display: block; margin-bottom: 2px;">🚗</span>
-                        <span id="eq-car" style="font-weight: 700; font-size: 0.95rem; display: block;">0</span>
-                        <span style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">Car KM Off</span>
+
+                    <div class="metrics-subgrid">
+                        <div class="metric-box">
+                            <span>Structural Lifespan</span>
+                            <strong id="res-span">50 - 100 Years</strong>
+                        </div>
+                        <div class="metric-box">
+                            <span>Carbon Regulation Penalty</span>
+                            <strong id="res-tax">$0.00</strong>
+                        </div>
+                        <div class="metric-box" style="grid-column: span 2;">
+                            <span>Material Composition Portfolio Cost</span>
+                            <strong id="res-cost">Baseline Metric</strong>
+                        </div>
                     </div>
-                    <div style="background: #ffffff; border: 1px solid var(--border-light); padding: 10px; border-radius: 8px; text-align: center;">
-                        <span style="font-size: 1.2rem; display: block; margin-bottom: 2px;">📱</span>
-                        <span id="eq-phone" style="font-weight: 700; font-size: 0.95rem; display: block;">0</span>
-                        <span style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">Smartphones</span>
+
+                    <!-- Эквиваленты Агентства по охране окружающей среды США (US EPA) -->
+                    <h4 class="equivalency-title">Equivalency Analysis Vectors</h4>
+                    
+                    <div class="equiv-item">
+                        <span class="equiv-icon">🌲</span>
+                        <div>
+                            <strong id="eq-trees">0</strong> Tree-Years of carbon sequestration required
+                        </div>
+                    </div>
+                    
+                    <div class="equiv-item">
+                        <span class="equiv-icon">🚗</span>
+                        <div>
+                            <strong id="eq-car">0</strong> kilometers of standard passenger car emissions offset
+                        </div>
+                    </div>
+
+                    <div class="equiv-item">
+                        <span class="equiv-icon">📱</span>
+                        <div>
+                            <strong id="eq-phone">0</strong> smartphone charges powered equivalently
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<!-- ADVANCED INTERACTIVE PANELS PLACED UNDERNEATH -->
-<div class="main-wrapper" style="margin-top: 25px; margin-bottom: 25px;">
-    <!-- INTERACTIVE SCM MIX OPTIMIZER -->
-    <div style="background: #ffffff; border: 2px solid #10b981; padding: 22px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.03);">
-        <h3 style="color: #065f46; font-size: 1.15rem; margin-top: 0; margin-bottom: 15px; border-bottom: 1px dashed #a7f3d0; padding-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-            🌿 SCM Mix Optimizer
-        </h3>
-      <div style="margin-top: 20px; padding: 16px; border: 1px dashed #d97706; border-radius: 6px; background-color: #fffbeb;">
-  <h4 style="margin: 0 0 12px 0; color: #b45309; font-size: 1rem;">Supplementary Cementitious Materials (SCM) Dynamic Matrix</h4>
-  
-  <div style="margin-top: 12px;">
-    <label style="display: block; font-size: 0.875rem; color: #374151;">GGBFS (Granulated Blast Furnace Slag): <span id="val-slag">0</span>%</label>
-    <input type="range" id="scm-slag" min="0" max="70" value="0" style="width: 100%;" oninput="document.getElementById('val-slag').innerText = this.value">
-  </div>
+            <!-- Блок методологии -->
+            <div class="panel-card architecture-card">
+                <h3 class="panel-title">Methodological System Architecture</h3>
+                <p>The calculations engineered into BuildGreen parse empirical carbon data coefficients compiled across the global Inventory of Carbon and Energy (ICE) Ledger and standard structural directives published by the American Concrete Institute (ACI). Transport freight variables model a standard heavy-vehicle logistics coefficient calibrated at 0.12 kg of CO₂ per metric ton-kilometer. Ecosystem sequestration data sets adopt the US Environmental Protection Agency (EPA) parameters modeling localized organic absorption rates.</p>
+            </div>
 
-  <div style="margin-top: 12px;">
-    <label style="display: block; font-size: 0.875rem; color: #374151;">Class F Fly Ash (Low-Calcium Coal Byproducts): <span id="val-flyash-f">0</span>%</label>
-    <input type="range" id="scm-flyash-f" min="0" max="30" value="0" style="width: 100%;" oninput="document.getElementById('val-flyash-f').innerText = this.value">
-  </div>
-
-  <div style="margin-top: 12px;">
-    <label style="display: block; font-size: 0.875rem; color: #374151;">Class C Fly Ash (High-Calcium / Self-Cementing): <span id="val-flyash-c">0</span>%</label>
-    <input type="range" id="scm-flyash-c" min="0" max="40" value="0" style="width: 100%;" oninput="document.getElementById('val-flyash-c').innerText = this.value">
-  </div>
-
-  <div style="margin-top: 12px;">
-    <label style="display: block; font-size: 0.875rem; color: #374151;">Natural Pozzolans (Volcanic Ash / Calcined Clay): <span id="val-pozzolan">0</span>%</label>
-    <input type="range" id="scm-pozzolan" min="0" max="35" value="0" style="width: 100%;" oninput="document.getElementById('val-pozzolan').innerText = this.value">
-  </div>
-
-  <div style="margin-top: 12px;">
-    <label style="display: block; font-size: 0.875rem; color: #374151;">Interground Limestone Fine Matrix Filler: <span id="val-limestone">0</span>%</label>
-    <input type="range" id="scm-limestone" min="0" max="15" value="0" style="width: 100%;" oninput="document.getElementById('val-limestone').innerText = this.value">
-  </div>
-</div>
-
-
-                <option value="silica">Silica Fume (High-Density Micro-Silica)</option>
-                <option value="calcined-clay">Calcined Clay / Metakaolin (Low-Carbon Binder)</option>
-            </select>
-            <div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; font-weight: 600;">
-                    <span style="color: #475569;">Cement Substitution Ratio:</span>
-                    <span id="scm-percentage-display" style="color: #10b981; font-weight: 700;">40%</span>
+            <!-- Блок академического рецензирования (скриншот 7) -->
+            <div class="panel-card architecture-card">
+                <h3 class="panel-title">🔬 Academic Peer-Review Status</h3>
+                <p style="font-size: 0.85rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Status: Under Active Review</p>
+                
+                <div class="review-box">
+                    <p class="review-quote">"Good start! Please look at the tool developed at Berkeley University. Also, add EPDs as these are becoming a big deal in the USA."</p>
+                    <p class="review-author">— Dr. K. Sobolev (Director, NSF CAN)</p>
                 </div>
-                <input type="range" id="scm-slider" min="0" max="70" value="40" step="5" style="width: 100%; accent-color: #10b981; cursor: pointer;" oninput="document.getElementById('scm-percentage-display').innerText = this.value + '%'; updateCalculations();">
-            </div>
-        </div>
-    </div>
-    <!-- ADVANCED LCA ARCHITECTURE (EPD & BERKELEY BOUNDARIES) -->
-    <div style="background: #f0fdf4; border: 2px solid #34d399; border-radius: 16px; padding: 22px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.03);">
-        <h3 style="color: #065f46; font-size: 1.15rem; margin-top: 0; margin-bottom: 15px; border-bottom: 1px dashed #a7f3d0; padding-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-            ⚙️ Advanced LCA Boundaries (Berkeley Framework)
-        </h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div>
-                <label style="color: #0f172a; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; display: block; margin-bottom: 6px;">Facility EPD Input (kg CO₂-eq/m³)</label>
-                <input type="number" id="epd-carbon-value" placeholder="Optional verified EPD GWP (e.g., 220)" style="width: 100%; padding: 10px; border: 1px solid #10b981; border-radius: 8px; font-size: 14px; box-sizing: border-box;" oninput="updateCalculations();">
-            </div>
-            <div>
-                <label style="color: #0f172a; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; display: block; margin-bottom: 6px;">Lifecycle Impact Boundary Mode</label>
-                <select id="lca-boundary-mode" style="width: 100%; padding: 10px; border: 1px solid #10b981; border-radius: 8px; font-size: 14px; background-color: #ffffff; box-sizing: border-box;" onchange="updateCalculations();">
-                    <option value="gate">Cradle-to-Gate (Manufacturing Carbon Only)</option>
-                    <option value="berkeley-site" selected>Cradle-to-Site (Berkeley Supply-Chain Model)</option>
-                    <option value="extended">Cradle-to-Grave (Complete Lifecycle Carbon Sinks)</option>
-                </select>
-            </div>
-        </div>
-    </div>
 
-    <!-- MAIN MATRIX ANALYSIS EXECUTION BUTTON -->
-    <button class="btn-submit" onclick="computeLifecycleMatrix()">
-        Run Advanced Lifecycle Analysis Matrix
-    </button>
-</div>
+                <!-- ТВОЯ КНОПКА С СЫЛКОЙ НА ГУГЛ-ФОРМУ (ЗАМЕНИ ТЕКСТ НИЖЕ НА СВОЮ ССЫЛКУ) -->
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSff7SJKN3CogLtIuTSAzAw1WaDpLYByhGB66c0aGVdf0aLZUQ/viewform?usp=header" target="_blank" style="text-decoration: none;">
+                    <button type="button" class="btn-primary" style="background-color: #334155; margin-top: 25px;">
+                        Submit Academic Peer-Review Feedback
+                    </button>
+                </a>
+            </div>
 
-<!-- METHODOLOGY SECTION & ACADEMIC LOGS -->
-<div style="max-width: 1200px; margin: 0 auto 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 400px; gap: 40px;">
-    <div>
-        <h2 style="font-size: 1.6rem; font-weight: 800; color: #0f172a; margin-top: 0; margin-bottom: 15px;">Methodological System Architecture</h2>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6; margin: 0;">
-            The calculations engineered into BuildGreen parse empirical carbon data coefficients compiled across the global Inventory of Carbon and Energy (ICE) Ledger and standard structural directives published by the American Concrete Institute (ACI). Transport freight variables model a standard heavy-vehicle logistics coefficient calibrated at 0.12 kg of CO₂ per metric-ton kilometer. Ecosystem sequestration data sets adopt the US Environmental Protection Agency (EPA) parameters modeling localized organic absorption rates.
-        </p>
-    </div>
+        </section>
+    </main>
+
+    <script>
+        // Находим элементы слайдеров SCM
+const sliders = ['ggbfs', 'flyash-f', 'flyash-c', 'pozzolan', 'limestone', 'silica', 'clay'];
+const sliderElements = {};
+const valueLabels = {};
+
+// Инициализируем поиск элементов на странице
+sliders.forEach(id => {
+    sliderElements[id] = document.getElementById(`slider-${id}`);
+    valueLabels[id] = document.getElementById(`val-${id}`);
     
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.01); text-align: left;">
-        <h4 style="margin: 0 0 10px 0; color: #0f172a; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-            🧪 Academic Peer-Review Status
-        </h4>
-        <p style="font-size: 0.8rem; color: #334155; margin: 0 0 12px 0; line-height: 1.45;">
-            <strong>Status: Under Active Review.</strong> Framework architecture, interactive sliders, and EPD ledger integration fields successfully configured based on initial US engineering feedback logs.
-        </p>
-        <div style="border-top: 1px dashed #e2e8f0; padding-top: 10px; margin-top: 10px;">
-            <span style="font-size: 0.7rem; color: #64748b; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 4px;">Latest Review Log:</span>
-            <p style="font-style: italic; color: #475569; font-size: 0.8rem; margin: 0 0 5px 0; line-height: 1.35;">
-                "Good start! Please look at the tool developed at Berkeley University... Also, add EPDs as these are becoming a big deal in the USA."
-            </p>
-            <span style="font-size: 0.75rem; color: #0f172a; font-weight: 600;">— Dr. K. Sobolev (Director, NSF CAN)</span>
-        </div>
-    </div>
-</div>
-
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSff7SJKN3CogLtIuTSAzAw1WaDpLYByhGB66c0aGVdf0aLZUQ/viewform?" target="_blank" class="submit-feedback-btn">📩 Submit Academic Peer-Review Feedback</a>
-
-<script>
-    function autoConfigureMaterial() {
-        const element = document.getElementById('element').value;
-        const matSelect = document.getElementById('material');
-        if (element === "columns") matSelect.value = "hsc";
-        else if (element === "pavement") matSelect.value = "recycled";
-        else matSelect.value = "standard";
+    // Навешиваем событие изменения на каждый ползунок
+    if (sliderElements[id]) {
+        sliderElements[id].addEventListener('input', () => {
+            if (valueLabels[id]) valueLabels[id].textContent = sliderElements[id].value;
+            checkScmLimits(id);
+        });
     }
+});
 
-    document.getElementById('material').addEventListener('change', function() {
-        const label = document.getElementById('quantity-label');
-        if (this.value === 'steel') label.textContent = "Weight Required (Metric Tons):";
-        else label.textContent = "Volume Required (Cubic Meters - m³):";
+// Отдельный ползунок для стальной арматуры
+const rebarSlider = document.getElementById('rebar-slider');
+const rebarLabel = document.getElementById('rebar-val-label');
+if (rebarSlider && rebarLabel) {
+    rebarSlider.addEventListener('input', () => {
+        rebarLabel.textContent = `${rebarSlider.value} kg/m³`;
     });
-
-    function updateCalculations() {
-        if (document.getElementById('analysis-results').style.display === 'block') {
-            computeLifecycleMatrix();
-        }
-    }
-
-    function computeLifecycleMatrix() {
-        const material = document.getElementById('material').value;
-        const qty = parseFloat(document.getElementById('quantity').value) || 0;
-        const dist = parseFloat(document.getElementById('distance').value) || 0;
-        const includeRebar = document.getElementById('rebar').checked;
-        const taxRate = parseFloat(document.querySelector('input[name="policytax"]:checked').value);
-
-        const epdInputValue = parseFloat(document.getElementById('epd-carbon-value').value);
-        const lcaBoundaryMode = document.getElementById('lca-boundary-mode').value;
-        const scmSliderValue = parseInt(document.getElementById('scm-slider').value) || 40;
-
-        if (qty <= 0) {
-            alert("Please initialize a structural parameter volume value exceeding zero.");
-            return;
-        }
-
-        let co2PerUnit = 0; let lifespan = ""; let costIndicator = ""; let weightPerUnit = 2.4;
-
-       switch(material) {
-    case "standard": 
-        co2PerUnit = 300; 
-        lifespan = "50 - 100 Years"; 
-        costIndicator = "Baseline Metric"; 
-        weightPerUnit = 2.4; 
-        break;
-    
-    case "low_carbon":
-        co2PerUnit = 300 * (1 - (scmSliderValue / 100));
-        lifespan = "60 - 100 Years"; 
-        costIndicator = "Slightly Elevated"; 
-        weightPerUnit = 2.4; 
-        break;
-    
-    case "recycled": 
-        co2PerUnit = 250; 
-        lifespan = "40 - 80 Years"; 
-        costIndicator = "Market Variable"; 
-        weightPerUnit = 2.4; 
-        break;
-    
-    case "hsc": 
-        co2PerUnit = 400; 
-        lifespan = "80 - 120 Years"; 
-        costIndicator = "High Strength Grade"; 
-        weightPerUnit = 2.4; 
-        break;
-    
-    case "uhpc": 
-        co2PerUnit = 900; 
-        lifespan = "100 - 150 Years"; 
-        costIndicator = "Advanced Engineering Premium"; 
-        weightPerUnit = 2.4; 
-        break;
-    
-    case "steel": 
-        co2PerUnit = 1800; 
-        lifespan = "100+ Years"; 
-        costIndicator = "High Material Premium"; 
-        weightPerUnit = 7.85; 
-        break;
-
-    // 🟢 ДОБАВЛЕННЫЕ ОПТИМИЗИРОВАННЫЕ КЛАССЫ МАТЕРИАЛОВ:
-
-    case "lightweight": 
-        co2PerUnit = 220; 
-        lifespan = "50 - 80 Years"; 
-        costIndicator = "Specialty Aggregate Shift"; 
-        weightPerUnit = 1.8; // Легкий бетон весит меньше стандартного (1.8 т/м³ вместо 2.4)
-        break;
-
-    case "pervious": 
-        co2PerUnit = 210; 
-        lifespan = "20 - 40 Years"; 
-        costIndicator = "Eco-Hydrological Tier"; 
-        weightPerUnit = 2.0; // Пористый бетон имеет меньшую плотность
-        break;
-
-    case "geopolymer": 
-        co2PerUnit = 85; // Огромное сокращение CO2 (минус ~75% от стандарта)
-        lifespan = "80 - 150 Years"; 
-        costIndicator = "Advanced Sustainable Premium"; 
-        weightPerUnit = 2.4; 
-        break;
 }
 
+// Функция контроля суммарного лимита добавок в 40%
+function checkScmLimits(currentSliderId) {
+    let total = 0;
+    sliders.forEach(id => {
+        if (sliderElements[id]) total += parseInt(sliderElements[id].value) || 0;
+    });
 
-        if (!isNaN(epdInputValue) && epdInputValue > 0 && material !== 'steel') {
-            co2PerUnit = epdInputValue;
-            costIndicator = "Verified EPD Ledger Grade";
+    const totalRatioLabel = document.getElementById('scm-total-ratio');
+    const progressBar = document.getElementById('scm-progress-bar');
+
+    if (totalRatioLabel) totalRatioLabel.textContent = `${total}%`;
+    
+    if (progressBar) {
+        // Отображаем заполнение шкалы относительно лимита в 40%
+        const fillPercentage = Math.min((total / 40) * 100, 100);
+        progressBar.style.width = `${fillPercentage}%`;
+
+        // Если превысили академический лимит 40%, зажигаем красную тревогу
+        if (total > 40) {
+            progressBar.classList.add('error-state');
+            totalRatioLabel.style.color = '#ef4444';
+        } else {
+            progressBar.classList.remove('error-state');
+            totalRatioLabel.style.color = '#334155';
         }
-
-        let totalWeightTons = qty * weightPerUnit;
-        let rebarCo2 = 0;
-
-        if (includeRebar && material !== 'steel') {
-            const rebarWeightKg = qty * 85;
-            rebarCo2 = rebarWeightKg * 1.8;
-            totalWeightTons += (rebarWeightKg / 1000);
-        }
-
-        let materialCo2 = (co2PerUnit * qty) + rebarCo2;
-        let transportCo2 = totalWeightTons * dist * 0.12; 
-
-        let totalCo2 = materialCo2 + transportCo2;
-        
-        if (lcaBoundaryMode === 'berkeley-site') {
-            totalCo2 = totalCo2 * 1.15; 
-        } else if (lcaBoundaryMode === 'extended') {
-            totalCo2 = totalCo2 * 1.25;
-        }
-
-        const totalCo2Tons = totalCo2 / 1000;
-        const taxCost = totalCo2Tons * taxRate;
-
-        const treesRequired = totalCo2 / 22;
-        const carKm = totalCo2 * 4.1; 
-        const phoneCharges = totalCo2 * 121; 
-
-        document.getElementById('res-span').textContent = lifespan;
-        document.getElementById('res-cost').textContent = costIndicator;
-        document.getElementById('res-co2').innerHTML = Math.round(totalCo2).toLocaleString() + " <span>kg</span>";
-        document.getElementById('res-tax').textContent = "$" + Math.round(taxCost).toLocaleString();
-
-        document.getElementById('eq-trees').textContent = Math.round(treesRequired).toLocaleString();
-        document.getElementById('eq-car').textContent = Math.round(carKm).toLocaleString();
-        document.getElementById('eq-phone').textContent = Math.round(phoneCharges).toLocaleString();
-
-        document.getElementById('welcome-prompt').style.display = 'none';
-        document.getElementById('analysis-results').style.display = 'block';
     }
-</script>
+    return total;
+}
+        // Навешиваем событие на главную кнопку запуска анализа
+const runBtn = document.getElementById('run-matrix-btn');
+if (runBtn) {
+    runBtn.addEventListener('click', calculateLifecycleMatrix);
+}
+
+function calculateLifecycleMatrix() {
+    // 1. Считываем базовые параметры проекта
+    const material = document.getElementById('material-portfolio').value;
+    const qty = parseFloat(document.getElementById('volume').value) || 0;
+    const dist = parseFloat(document.getElementById('distance').value) || 0;
+    const includeRebar = document.getElementById('include-rebar').checked;
+    const rebarWeightKg = parseFloat(document.getElementById('rebar-slider').value) || 0;
+    const taxRate = parseFloat(document.querySelector('input[name="policy-tax"]:checked').value) || 0;
+    const epdOverride = parseFloat(document.getElementById('epd-input').value) || 0;
+
+    // Валидация входного объема
+    if (qty <= 0) {
+        alert("Please initialize a structural parameter volume value exceeding zero.");
+        return;
+    }
+
+    // 2. Инициализируем переменные (по умолчанию под стандартный бетон)
+    let co2PerUnit = 300; // Базовый клинкерный след (kg CO2/m3)
+    let lifespan = "50 - 100 Years";
+    let costIndicator = "Baseline Metric";
+    let weightPerUnit = 2.4; // Стандартная плотность (Metric Tons / m3)
+
+    // 3. Строгая академическая матрица коэффициентов (EPD / ICE Standards)
+    switch(material) {
+        case "standard": 
+            co2PerUnit = 320; 
+            lifespan = "50 - 100 Years"; 
+            costIndicator = "Baseline Metric"; 
+            weightPerUnit = 2.4; 
+            break;
+        case "plc": 
+            co2PerUnit = 280; // Эко-оптимизированный цемент типа IL (-12..15% CO2)
+            lifespan = "60 - 110 Years"; 
+            costIndicator = "Slightly Elevated"; 
+            weightPerUnit = 2.4; 
+            break;
+        case "hsc": 
+            co2PerUnit = 420; // Ранняя прочность требует больше клинкера (+30% CO2)
+            lifespan = "80 - 120 Years"; 
+            costIndicator = "High Strength Grade"; 
+            weightPerUnit = 2.4; 
+            break;
+        case "lightweight": 
+            co2PerUnit = 240; 
+            lifespan = "50 - 80 Years"; 
+            costIndicator = "Specialty Aggregate Shift"; 
+            weightPerUnit = 1.8; // Легкий сланец/глина снижают вес конструкций до 1.8 т/м3
+            break;
+        case "uhpc": 
+            co2PerUnit = 880; // Сверхпрочный UHPC из-за плотности вяжущего имеет огромный след
+            lifespan = "100 - 150 Years"; 
+            costIndicator = "Advanced Engineering Premium"; 
+            weightPerUnit = 2.5; 
+            break;
+        case "pervious": 
+            co2PerUnit = 210; 
+            lifespan = "20 - 40 Years"; 
+            costIndicator = "Eco-Hydrological Tier"; 
+            weightPerUnit = 2.0; 
+            break;
+        case "geopolymer": 
+            co2PerUnit = 75; // Геополимеры на шлаке/золе сокращают след на 75-80% от стандарта
+            lifespan = "80 - 150 Years"; 
+            costIndicator = "Advanced Sustainable Premium"; 
+            weightPerUnit = 2.4; 
+            break;
+    }
+
+    // Если пользователь вручную ввёл верифицированный EPD (как просил Беркли-фреймворк)
+    if (!isNaN(epdOverride) && epdOverride > 0) {
+        co2PerUnit = epdOverride;
+        costIndicator = "Verified EPD Ledger Grade";
+    }
+
+    // 4. Расчёт влияния SCM-добавок (Уменьшаем углеродный след клинкера)
+    let totalScmPercent = 0;
+    sliders.forEach(id => {
+        if (sliderElements[id]) totalScmPercent += parseInt(sliderElements[id].value) || 0;
+    });
+    
+    // Ограничиваем расчётное влияние максимумом в 40%, чтобы избежать ухода в минус
+    if (totalScmPercent > 40) totalScmPercent = 40; 
+    
+    // SCM замещает долю цемента, снижая базовые выбросы материала пропорционально
+    co2PerUnit = co2PerUnit * (1 - (totalScmPercent / 100));
+
+    // 5. Расчёт чистой массы материала
+    const totalWeightTons = qty * weightPerUnit;
+
+    // 6. Расчёт углеродного следа арматуры (Reinforcing Steel Matrix)
+    let rebarCo2Tons = 0;
+    if (includeRebar && material !== 'steel') {
+        const totalRebarWeightKg = qty * rebarWeightKg;
+        // Коэффициент переработки стали США: ~1.8 кг CO2 на 1 кг стали
+        rebarCo2Tons = (totalRebarWeightKg * 1.8) / 1000; 
+    }
+
+    // 7. Расчёт материального и транспортного следа
+    const materialCo2Tons = (co2PerUnit * qty) / 1000;
+    // Логистика тяжелых грузов EPA: 0.12 кг CO2 на метрический тонно-километр [2]
+    const transportCo2Tons = (totalWeightTons * dist * 0.12) / 1000;
+
+    // 8. Суммирование полного цикла (Total LCA Matrix)
+    const totalCo2Tons = materialCo2Tons + transportCo2Tons + rebarCo2Tons;
+    const totalCo2Kg = totalCo2Tons * 1000;
+
+    // 9. Финансовый углеродный штраф (Carbon Tax)
+    const taxCost = totalCo2Tons * taxRate;
+
+    // 10. Перевод в эквиваленты US EPA
+    // 1 дерево поглощает около 22 кг CO2 в год
+    const treesRequired = Math.round(totalCo2Kg / 22);
+    // Средний легковой автомобиль в США выбрасывает 0.24 кг CO2 на 1 км пробега
+    const carKm = Math.round(totalCo2Kg / 0.24);
+    // Смартфон заряжается около 120 раз на 1 кг CO2 выбросов
+    const phoneCharges = Math.round(totalCo2Kg * 120);
+
+    // 11. Мгновенный вывод и отрисовка результатов в DOM-дерево интерфейса
+    document.getElementById('res-span').textContent = lifespan;
+    document.getElementById('res-cost').textContent = costIndicator;
+    
+    // Красиво форматируем числа с разделением тысяч
+    document.getElementById('res-co2').innerHTML = Math.round(totalCo2Kg).toLocaleString() + " <span>kg CO₂-eq</span>";
+    document.getElementById('res-tax').textContent = taxCost > 0 ? `$${Math.round(taxCost).toLocaleString()}` : "$0.00 (Exempt)";
+
+    document.getElementById('eq-trees').textContent = treesRequired.toLocaleString();
+    document.getElementById('eq-car').textContent = carKm.toLocaleString();
+    document.getElementById('eq-phone').textContent = phoneCharges.toLocaleString();
+
+    // Переключаем интерфейс: скрываем экран ожидания, плавно показываем результаты
+    document.getElementById('awaiting-params').style.display = 'none';
+    document.getElementById('analysis-results').style.display = 'block';
+}
+
+    </script>
 </body>
 </html>
-
-
